@@ -1,0 +1,116 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\EmpyrionDedicated_Data\Managed\Mif.dll"  #>
+<#@ assembly name="$(TargetDir)EmpyrionAPIDefinitions.dll" #>
+<#@ import namespace="EmpyrionAPIDefinitions" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Eleon.Modding" #>
+<#@ output extension=".cs" #> 
+using Eleon.Modding;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+//this file was auto-generated
+
+namespace EmpyrionAPITools
+{
+	public static partial class Broker {
+
+	<#foreach(var item in APIManifest.RequestManifest){
+    var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
+    var signature = generateMethodSignature(item);
+    var apiCmdArgsString = getBrokerCallArgsString(signature, expectedResponse);#>
+		
+    public static void <#=signature#>{
+      var cmdid = CmdId.<#=signature.methodName#>;
+      var apiCmd = new GenericAPICommand(<#=apiCmdArgsString#>);
+      Broker.Execute(apiCmd);
+    }
+	<#}#>
+	}
+
+  public abstract partial class SimpleMod {
+	<#foreach(var item in APIManifest.RequestManifest){	
+      var signature = generateMethodSignature(item);
+      var args = signature.args.Select(x=>x.argName);
+      var argString = String.Join(", ", args);#>
+	  public void <#=signature#>{
+      Broker.<#=signature.methodName#>(<#=argString#>);
+    }
+	<#}#>    
+  }
+}
+
+<#+
+
+  public class GenericArg {
+    public string argName;
+    public string argType;
+    public string defaultVal;
+
+    public GenericArg(string argName, string argType) : this(argName, argType, null){
+    }
+
+    public GenericArg(string argType, string argName, string defaultVal){
+      this.argName = argName;
+      this.argType = argType;
+      this.defaultVal = defaultVal;
+    }
+
+    public override string ToString() {
+      string val = defaultVal == null ? "" : $" = {this.defaultVal}";
+      return $"{this.argType} {this.argName}{val}";
+    }
+  }
+
+  public class GenericMethodSignature {
+    public string methodName;
+    public List<GenericArg> args;
+
+    public override string ToString(){
+      var argString = String.Join(", ", this.args);
+      return $"{methodName}({argString})";
+    }
+  }
+
+  public static GenericMethodSignature generateMethodSignature(APIRequest item){
+    var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
+    var result = new GenericMethodSignature();
+    result.methodName = item.CmdId.ToString();
+    var tmpArgList = new List<GenericArg>();
+    if (item.ParamType != null)
+      tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));
+
+    if (expectedResponse.ParamType != null)
+    {
+      var typeName = expectedResponse.ParamType.Name;
+      tmpArgList.Add(new GenericArg($"Action<{typeName}>", "callback"));
+    }
+
+    tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
+    result.args = tmpArgList;
+    return result;
+  }
+
+  public static string getBrokerCallArgsString(GenericMethodSignature signature, APIEvent expectedResponse){
+    var hasCallback = signature.args.Any(x=>x.argName == "callback");
+      string callbackType="";
+      if(hasCallback){
+        callbackType = expectedResponse.ParamType.Name;
+      }
+		
+    var apiCmdArgs = new string[]{
+      "cmdid",
+      signature.args.Any(x=>x.argName == "arg") ? "arg" : "null",
+      hasCallback ? $"(_, val) => callback(({callbackType})val)" : "(_,__) => {}",
+      "onError ?? noOpErrorHandler"
+    };
+    var apiCmdArgsString = String.Join(", ", apiCmdArgs);
+    return apiCmdArgsString;
+  }
+
+ #>
+
