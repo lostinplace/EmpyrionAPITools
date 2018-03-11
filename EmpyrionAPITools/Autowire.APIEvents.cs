@@ -133,17 +133,17 @@ namespace EmpyrionAPITools
     }
     
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
-    public static event Action<StatisticsType> Event_Statistics
+    public static event Action<StatisticsParam> Event_Statistics
     {
       add {
         if (eventTable.ContainsKey(CmdId.Event_Statistics))
-          eventTable[CmdId.Event_Statistics] = (Action<StatisticsType>)eventTable[CmdId.Event_Statistics] + value;
+          eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] + value;
         else
           eventTable[CmdId.Event_Statistics] = value;
       }
       remove {
         if (eventTable.ContainsKey(CmdId.Event_Statistics))
-          eventTable[CmdId.Event_Statistics] = (Action<StatisticsType>)eventTable[CmdId.Event_Statistics] - value;
+          eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] - value;
         else
           eventTable[CmdId.Event_Statistics] = value;
       }
@@ -646,7 +646,7 @@ namespace EmpyrionAPITools
 
         
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
-    public event Action<StatisticsType> Event_Statistics
+    public event Action<StatisticsParam> Event_Statistics
     {
       add {
         Broker.Event_Statistics += value;

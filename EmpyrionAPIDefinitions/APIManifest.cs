@@ -88,7 +88,7 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_Player_ChangedPlayfield, typeof(IdPlayfield)),
       new APIEvent(CmdId.Event_Player_DisconnectedWaiting, typeof(Id)),
       new APIEvent(CmdId.Event_Faction_Changed, typeof(FactionChangeInfo)),
-      new APIEvent(CmdId.Event_Statistics, typeof(StatisticsType)),
+      new APIEvent(CmdId.Event_Statistics, typeof(StatisticsParam)),
       new APIEvent(CmdId.Event_ChatMessage, typeof(ChatInfo)),
       new APIEvent(CmdId.Event_TraderNPCItemSold, typeof(TraderNPCItemSoldInfo)),
       new APIEvent(CmdId.Event_ConsoleCommand, typeof(ConsoleCommandInfo)),

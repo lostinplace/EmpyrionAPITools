@@ -40,32 +40,34 @@ namespace EmpyrionAPITools
     public static void HandleGameEvent(CmdId eventId, ushort seqNr, object data)
     {            
       var apiEvent = new apiEvent(eventId, seqNr, data);
+      log(() => $"receiving event {eventId.ToString()}:{seqNr}");
 
       Delegate handler;
-
+      
       if (eventTable.TryGetValue(eventId, out handler))
         handler.DynamicInvoke(new object[] { data });
 
+      
       if (!commandTracker.ContainsKey(seqNr)) return;
-            
+      
       var outstandingRequestList = commandTracker[seqNr];
-            
+      
       var firstApplicableRequest = outstandingRequestList.FirstOrDefault(x => x.call.ResponseCmdId == eventId || eventId == CmdId.Event_Error);
-
+      
       if (firstApplicableRequest == null) return;
-            
+      
       outstandingRequestList.Remove(firstApplicableRequest);
-            
+      
       if (outstandingRequestList.Count > 0) commandTracker[seqNr] = outstandingRequestList;
       else commandTracker.Remove(seqNr);
-            
+      
       if (eventId == CmdId.Event_Error && firstApplicableRequest.errorHandler != null)
       {
           firstApplicableRequest.errorHandler((ErrorInfo)data);
           return;
       }
-
-      firstApplicableRequest.responseHandler(eventId, data);            
+      
+      firstApplicableRequest.responseHandler(eventId, data);
     }
 
     public static void log(string message)

@@ -1,7 +1,7 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\EmpyrionDedicated_Data\Managed\Mif.dll"  #>
-<#@ assembly name="$(TargetDir)EmpyrionAPIDefinitions.dll" #>
+<#@ assembly name="$(SolutionDir)EmpyrionAPIDefinitions\bin\$(Configuration)\EmpyrionAPIDefinitions.dll" #>
 <#@ import namespace="EmpyrionAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
