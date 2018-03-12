@@ -37,6 +37,7 @@ namespace EmpyrionAPITools
       var signature = generateMethodSignature(item);
       var args = signature.args.Select(x=>x.argName);
       var argString = String.Join(", ", args);#>
+
 	  public void <#=signature#>{
       Broker.<#=signature.methodName#>(<#=argString#>);
     }
@@ -87,10 +88,12 @@ namespace EmpyrionAPITools
     if (expectedResponse.ParamType != null)
     {
       var typeName = expectedResponse.ParamType.Name;
-      tmpArgList.Add(new GenericArg($"Action<{typeName}>", "callback"));
+      tmpArgList.Add(new GenericArg($"Action<{typeName}>", "callback", "null"));
+    } else {
+      tmpArgList.Add(new GenericArg($"Action", "callback", "null"));
     }
 
-    tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
+      tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
     result.args = tmpArgList;
     return result;
   }

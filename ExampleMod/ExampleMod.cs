@@ -19,6 +19,7 @@ namespace ExampleMod
       this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
+ 
     }
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)

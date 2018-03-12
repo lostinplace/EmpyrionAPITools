@@ -27,7 +27,6 @@ namespace EmpyrionAPITools
 
     void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
     {
-      
       Broker.HandleGameEvent(eventId, seqNr, data);
 
       API_Message_Received?.Invoke(eventId, seqNr, data);
@@ -47,7 +46,7 @@ namespace EmpyrionAPITools
 
     void ModInterface.Game_Update()
     {
-      Update_Received?.Invoke(Broker.api.Game_GetTickTime()); 
+      Update_Received?.Invoke(Broker.api.Game_GetTickTime());
     }
 
     public void log(string msg)
