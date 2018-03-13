@@ -6,6 +6,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="Eleon.Modding" #>
 <#@ output extension=".cs" #> 
 using Eleon.Modding;
@@ -22,11 +23,27 @@ namespace EmpyrionAPITools
 	<#foreach(var item in APIManifest.RequestManifest){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
     var signature = generateMethodSignature(item);
-    var apiCmdArgsString = getBrokerCallArgsString(signature, expectedResponse);#>
+    
+    var callbackBaseType = signature.GetSubTypeForArg("callback");
+    
+    var defaultCallback = "(() => {})";
+    var castCallback = "(_, val) => finalCallback()";
+    if(callbackBaseType != null){
+      defaultCallback = "((_) => {})";
+      castCallback = $"(_, val) => finalCallback(({callbackBaseType})val)";
+    }
+  #>
+
 		
     public static void <#=signature#>{
       var cmdid = CmdId.<#=signature.methodName#>;
-      var apiCmd = new GenericAPICommand(<#=apiCmdArgsString#>);
+      var finalCallback = callback ?? <#=defaultCallback#>;
+      var apiCmd = new GenericAPICommand(
+        cmdid,
+        <#=signature.HasArgWithName("arg") ? "arg" : "null" #>,
+        <#=castCallback#>,
+        onError ?? noOpErrorHandler
+      );
       Broker.Execute(apiCmd);
     }
 	<#}#>
@@ -52,8 +69,7 @@ namespace EmpyrionAPITools
     public string argType;
     public string defaultVal;
 
-    public GenericArg(string argName, string argType) : this(argName, argType, null){
-    }
+    public GenericArg(string argName, string argType) : this(argName, argType, null){  }
 
     public GenericArg(string argType, string argName, string defaultVal){
       this.argName = argName;
@@ -69,7 +85,28 @@ namespace EmpyrionAPITools
 
   public class GenericMethodSignature {
     public string methodName;
+    
     public List<GenericArg> args;
+    private static Regex actionTypePattern = new Regex(@"Action<(.*)>");
+
+
+    public bool HasArgWithName(string argName){
+      return this.args.Any(x=>x.argName == "arg");
+    }
+
+    public string GetTypeForArg(string argName){
+      var result= this.args.FirstOrDefault(x=>x.argName==argName);
+      if(result == null) return null;
+      return result.argType;
+    }
+
+    public string GetSubTypeForArg(string argName){
+      var baseType = this.GetTypeForArg(argName);
+      if(baseType == null) return null;
+      var match = actionTypePattern.Match(baseType);
+      if(!match.Success) return null;
+      return match.Groups[1].Value;
+    }
 
     public override string ToString(){
       var argString = String.Join(", ", this.args);
@@ -82,8 +119,10 @@ namespace EmpyrionAPITools
     var result = new GenericMethodSignature();
     result.methodName = item.CmdId.ToString();
     var tmpArgList = new List<GenericArg>();
-    if (item.ParamType != null)
+    
+    if (item.ParamType != null){
       tmpArgList.Add(new GenericArg(item.ParamType.Name, "arg"));
+    }
 
     if (expectedResponse.ParamType != null)
     {
@@ -96,23 +135,6 @@ namespace EmpyrionAPITools
       tmpArgList.Add(new GenericArg("Action<ErrorInfo>", "onError", "null"));
     result.args = tmpArgList;
     return result;
-  }
-
-  public static string getBrokerCallArgsString(GenericMethodSignature signature, APIEvent expectedResponse){
-    var hasCallback = signature.args.Any(x=>x.argName == "callback");
-      string callbackType="";
-      if(hasCallback){
-        callbackType = expectedResponse.ParamType.Name;
-      }
-		
-    var apiCmdArgs = new string[]{
-      "cmdid",
-      signature.args.Any(x=>x.argName == "arg") ? "arg" : "null",
-      hasCallback ? $"(_, val) => callback(({callbackType})val)" : "(_,__) => {}",
-      "onError ?? noOpErrorHandler"
-    };
-    var apiCmdArgsString = String.Join(", ", apiCmdArgs);
-    return apiCmdArgsString;
   }
 
  #>

@@ -1,4 +1,4 @@
-# EmpyrionAPITools
+﻿# EmpyrionAPITools
 
 ## FAQ
 
@@ -131,7 +131,7 @@ There are two DLLs that you'll need to get started, they are:
 * `EmpyrionAPITools\build\EmpyrionAPITools\EmpyrionAPITools.dll`
 * `EmpyrionAPITools\build\EmpyrionAPITools\EmpyrionAPIDefinitions.dll`
 
-Make sure that you add references to both of them in your new project.
+Make sure that you add references to both of them in your new project.  Make sure that in the properties menu for each reference, "Copy Local" is set to true.
 
 *Note: In the future these might be compressed to a single dll, but for now there will be two*
 
@@ -163,3 +163,31 @@ namespace ExampleMod
   }
 }
 ```
+
+Note that all this mod does is listen for `Plyer_Connected` events, and when they are received, it fires a message to all clients on the server.
+
+#### Bundle using IlMerge and Deploy
+
+In order to deploy this to your server, you'll need a single DLL artifact that contains all of the dependencies.  THe easiest way to do this, that I've found is to use the ilmerge msbuild task (found on nuget as MSBuild.ILMerge.Task or here https://archive.codeplex.com/?p=ilmergemsbuild ).
+
+In order to use it, just install the plugin using nuget, and your build artifact will be bundled appropriately.
+
+This will produce a single DLL, that you can copy into a folder on your server in the `Content/Mods` folder.  For example
+
+* `Content/Mods`
+  * `Content/Mods/Example`
+    * `Content/Mods/Example/Example.dll`
+
+Note that you must restart the server in order for the mod to be loaded.
+
+### Where are the docs?
+
+This isn't very well documented at the moment, but if it starts seeing traction, I'll document it more throughly.  For now feel free to leave questions in the issue tracker.
+
+### How can I contribute?
+
+Feel free to leave feedback, or submit pull requests.  I'm doing this so that we get more mods for Empyrion, so anything I can do to help enable you, I'd love to know about.
+
+---
+
+**Have Fun!**

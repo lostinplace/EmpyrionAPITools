@@ -19,7 +19,6 @@ namespace ExampleMod
       this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
- 
     }
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)
@@ -69,8 +68,6 @@ namespace ExampleMod
           msg = $"Congratulations!, You Won!"
         };
 
-        this.Request_InGameMessage_SinglePlayer(msgParam, x=>log($"message 1 error: {x.errorType.ToString()}"));
-
         var rewardParam = new ItemExchangeInfo()
         {
           id = selectedId,
@@ -88,17 +85,17 @@ namespace ExampleMod
 
         this.Request_Player_ItemExchange(rewardParam, result =>
         {
-          log($"itemechange result");
+          log($"itemexchange result count {result.items.Count()}");
           if (result.items.Count() == 0) return;
           var tyParam = new IdMsgPrio()
           {
             id = selectedId,
             msg = $"Thanks for the gift!"
           };
-          this.Request_InGameMessage_SinglePlayer(tyParam, x => log($"message 2 error: {x.errorType.ToString()}"));
+          this.Request_InGameMessage_SinglePlayer(tyParam);
 
         }, x => log($"itemexchange error: {x.errorType.ToString()}"));
-
+        
       });
       
     }
