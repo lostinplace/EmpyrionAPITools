@@ -48,7 +48,7 @@ namespace ExampleMod
       {
         msg = $@"A game event occured, name:{obj.Name}, type:{obj.Type}, eventType:{obj.EventType}"
       };
-
+      
       this.Request_InGameMessage_AllPlayers(eventMessage);
     }
 
