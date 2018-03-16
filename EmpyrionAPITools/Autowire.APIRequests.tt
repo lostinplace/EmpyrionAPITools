@@ -18,9 +18,9 @@ using System.Linq;
 
 namespace EmpyrionAPITools
 {
-	public static partial class Broker {
+  public static partial class Broker {
 
-	<#foreach(var item in APIManifest.RequestManifest){
+  <#foreach(var item in APIManifest.RequestManifest){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
     var signature = generateMethodSignature(item);
     
@@ -33,8 +33,7 @@ namespace EmpyrionAPITools
       castCallback = $"(_, val) => finalCallback(({callbackBaseType})val)";
     }
   #>
-
-		
+  
     public static void <#=signature#>{
       var cmdid = CmdId.<#=signature.methodName#>;
       var finalCallback = callback ?? <#=defaultCallback#>;
@@ -46,19 +45,20 @@ namespace EmpyrionAPITools
       );
       Broker.Execute(apiCmd);
     }
-	<#}#>
-	}
+  <#}#>
+  }
 
   public abstract partial class SimpleMod {
-	<#foreach(var item in APIManifest.RequestManifest){	
+    <#foreach(var item in APIManifest.RequestManifest){	
       var signature = generateMethodSignature(item);
       var args = signature.args.Select(x=>x.argName);
-      var argString = String.Join(", ", args);#>
+      var argString = String.Join(", ", args);
+    #>
 
 	  public void <#=signature#>{
       Broker.<#=signature.methodName#>(<#=argString#>);
     }
-	<#}#>    
+    <#}#>    
   }
 }
 
