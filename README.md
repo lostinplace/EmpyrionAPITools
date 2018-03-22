@@ -180,6 +180,35 @@ This will produce a single DLL, that you can copy into a folder on your server i
 
 Note that you must restart the server in order for the mod to be loaded.
 
+#### What is a ChatCommand?
+
+The `ChatCommands` API is a way of describing functions that can be invoked with text entry to the chat box (using the "." in-game).
+
+The basic usage looks like this:
+
+```csharp
+
+this.ChatCommands.Add(new ChatCommand(@"loudly (?<yellthis>.+)", (data, args) => {
+  var msg = new IdMsgPrio()
+  {
+    id = data.playerId,
+    msg = $"{args["yellthis"].ToUpper()}!!!!!"
+  };
+  this.Request_InGameMessage_SinglePlayer(msg);
+}));
+
+```
+
+In this example, there is a call made in the `Initialize` function of our mod that is adding to the `ChatCommands` collection, inherited from `SimpleMod`
+
+The constructor for `ChatCommand` takes two arguments, a regex pattern as a string.  In this case, the pattern is, `"@"loudly (?<yellthis>.+)""` which, matches phrases like, "loudly he went to the store".  Note that in this case, "loudly " would be matched by the concrete part of the pattern, whereas "he went to the store" would be captured as part of the named capture group, "yellthis".
+
+Next we specify a handler for the ChatCommand, which is a function that returns `void`, and accepts two arguments, a `ChatInfo` object from the `Eleon.Modding` namespace and a `Dictionary<String, String>`.  The `ChatInfo` for the the chat message event is passed in this case as the variable `data`, The dictionary, `args` will contain all of the named capture groups.  In this case, the dictionary will have only 1 key value pair: `"yellthis": "he went to the store"`
+
+#### Is this API final?
+
+Oh god no!  If you have a better way I'd be thrilled to integrate it.
+
 ### Where are the docs?
 
 This isn't very well documented at the moment, but if it starts seeing traction, I'll document it more throughly.  For now feel free to leave questions in the issue tracker.

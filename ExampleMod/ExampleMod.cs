@@ -13,12 +13,34 @@ namespace ExampleMod
 
     Random rnd = new Random();
 
+
     public override void Initialize(ModGameAPI dediAPI)
     {
+
       this.Update_Received += ExampleMod_Update_Received;
       this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
+      this.ChatCommands.Add(new ChatCommand(@"repeat (?<repeat>\S+)", ChatCommand_TestMessage));
+      this.ChatCommands.Add(new ChatCommand(@"loudly (?<yellthis>.+)", (data, args) => {
+        var msg = new IdMsgPrio()
+        {
+          id = data.playerId,
+          msg = $"{args["yellthis"].ToUpper()}!!!!!"
+        };
+        this.Request_InGameMessage_SinglePlayer(msg);
+      }));
+    }
+
+    private void ChatCommand_TestMessage(ChatInfo data, Dictionary<string, string> args)
+    {
+      var repeating = args["repeat"];
+      var msg = new IdMsgPrio()
+      {
+        id = data.playerId,
+        msg = $"{repeating} {repeating} {repeating}!"
+      };
+      this.Request_InGameMessage_SinglePlayer(msg);
     }
 
     private void PlayerDied_Event_Statistics(StatisticsParam obj)

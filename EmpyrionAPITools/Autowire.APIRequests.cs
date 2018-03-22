@@ -11,534 +11,575 @@ namespace EmpyrionAPITools
 	public static partial class Broker {
 
 	
-		
-    public static void Request_Playfield_List(Action<PlayfieldList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Playfield_List;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Playfield_List(Action<PlayfieldList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((PlayfieldList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Playfield_List,
         null,
-        (_, val) => finalCallback((PlayfieldList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Playfield_Stats(PString arg, Action<PlayfieldStats> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Playfield_Stats;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Playfield_Stats(PString arg, Action<PlayfieldStats> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((PlayfieldStats)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Playfield_Stats,
         arg,
-        (_, val) => finalCallback((PlayfieldStats)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Dedi_Stats(Action<DediStats> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Dedi_Stats;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Dedi_Stats(Action<DediStats> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((DediStats)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Dedi_Stats,
         null,
-        (_, val) => finalCallback((DediStats)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_GlobalStructure_List(Action<GlobalStructureList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_GlobalStructure_List;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_GlobalStructure_List(Action<GlobalStructureList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((GlobalStructureList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_GlobalStructure_List,
         null,
-        (_, val) => finalCallback((GlobalStructureList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_GlobalStructure_Update(PString arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_GlobalStructure_Update;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_GlobalStructure_Update(PString arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_GlobalStructure_Update,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Structure_Touch(Id arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Structure_Touch;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Structure_Touch(Id arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Structure_Touch,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Structure_BlockStatistics(Id arg, Action<IdStructureBlockInfo> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Structure_BlockStatistics;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Structure_BlockStatistics(Id arg, Action<IdStructureBlockInfo> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdStructureBlockInfo)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Structure_BlockStatistics,
         arg,
-        (_, val) => finalCallback((IdStructureBlockInfo)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_Info(Id arg, Action<PlayerInfo> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_Info;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_Info(Id arg, Action<PlayerInfo> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((PlayerInfo)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_Info,
         arg,
-        (_, val) => finalCallback((PlayerInfo)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_List(Action<IdList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_List;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_List(Action<IdList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_List,
         null,
-        (_, val) => finalCallback((IdList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_GetInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_GetInventory;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_GetInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((Inventory)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_GetInventory,
         arg,
-        (_, val) => finalCallback((Inventory)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_SetInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_SetInventory;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_SetInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((Inventory)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_SetInventory,
         arg,
-        (_, val) => finalCallback((Inventory)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_AddItem(IdItemStack arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_AddItem;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Player_AddItem(IdItemStack arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_AddItem,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_Credits(Id arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_Credits;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_Credits(Id arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdCredits)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_Credits,
         arg,
-        (_, val) => finalCallback((IdCredits)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_SetCredits(IdCredits arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_SetCredits;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_SetCredits(IdCredits arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdCredits)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_SetCredits,
         arg,
-        (_, val) => finalCallback((IdCredits)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_AddCredits(IdCredits arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_AddCredits;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_AddCredits(IdCredits arg, Action<IdCredits> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdCredits)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_AddCredits,
         arg,
-        (_, val) => finalCallback((IdCredits)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Blueprint_Finish(Id arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Blueprint_Finish;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Blueprint_Finish(Id arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Blueprint_Finish,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Blueprint_Resources(BlueprintResources arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Blueprint_Resources;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Blueprint_Resources(BlueprintResources arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Blueprint_Resources,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_ChangePlayerfield(IdPlayfieldPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_ChangePlayerfield;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Player_ChangePlayerfield(IdPlayfieldPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_ChangePlayerfield,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_ItemExchange(ItemExchangeInfo arg, Action<ItemExchangeInfo> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_ItemExchange;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_ItemExchange(ItemExchangeInfo arg, Action<ItemExchangeInfo> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((ItemExchangeInfo)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_ItemExchange,
         arg,
-        (_, val) => finalCallback((ItemExchangeInfo)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_SetPlayerInfo(PlayerInfoSet arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_SetPlayerInfo;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Player_SetPlayerInfo(PlayerInfoSet arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_SetPlayerInfo,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_Teleport(IdPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_Teleport;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_Teleport(IdPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_Teleport,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_ChangePlayfield(IdPlayfieldPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_ChangePlayfield;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_ChangePlayfield(IdPlayfieldPositionRotation arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_ChangePlayfield,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_Destroy(Id arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_Destroy;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_Destroy(Id arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_Destroy,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_PosAndRot(Id arg, Action<IdPositionRotation> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_PosAndRot;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Entity_PosAndRot(Id arg, Action<IdPositionRotation> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdPositionRotation)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_PosAndRot,
         arg,
-        (_, val) => finalCallback((IdPositionRotation)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_Spawn(EntitySpawnInfo arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_Spawn;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_Spawn(EntitySpawnInfo arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_Spawn,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Get_Factions(Id arg, Action<FactionInfoList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Get_Factions;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Get_Factions(Id arg, Action<FactionInfoList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((FactionInfoList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Get_Factions,
         arg,
-        (_, val) => finalCallback((FactionInfoList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_NewEntityId(Action<Id> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_NewEntityId;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_NewEntityId(Action<Id> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((Id)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_NewEntityId,
         null,
-        (_, val) => finalCallback((Id)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_AlliancesAll(Action<AlliancesTable> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_AlliancesAll;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_AlliancesAll(Action<AlliancesTable> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((AlliancesTable)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_AlliancesAll,
         null,
-        (_, val) => finalCallback((AlliancesTable)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_AlliancesFaction(AlliancesFaction arg, Action<AlliancesFaction> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_AlliancesFaction;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_AlliancesFaction(AlliancesFaction arg, Action<AlliancesFaction> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((AlliancesFaction)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_AlliancesFaction,
         arg,
-        (_, val) => finalCallback((AlliancesFaction)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Load_Playfield(PlayfieldLoad arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Load_Playfield;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Load_Playfield(PlayfieldLoad arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Load_Playfield,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_ConsoleCommand(PString arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_ConsoleCommand;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_ConsoleCommand(PString arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_ConsoleCommand,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_GetBannedPlayers(Action<IdList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_GetBannedPlayers;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_GetBannedPlayers(Action<IdList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((IdList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_GetBannedPlayers,
         null,
-        (_, val) => finalCallback((IdList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_InGameMessage_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_InGameMessage_SinglePlayer;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_InGameMessage_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_InGameMessage_SinglePlayer,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_InGameMessage_AllPlayers(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_InGameMessage_AllPlayers;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_InGameMessage_AllPlayers(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_InGameMessage_AllPlayers,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_InGameMessage_Faction(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_InGameMessage_Faction;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_InGameMessage_Faction(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_InGameMessage_Faction,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_ShowDialog_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_ShowDialog_SinglePlayer;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_ShowDialog_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_ShowDialog_SinglePlayer,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Player_GetAndRemoveInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Player_GetAndRemoveInventory;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Player_GetAndRemoveInventory(Id arg, Action<Inventory> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((Inventory)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Player_GetAndRemoveInventory,
         arg,
-        (_, val) => finalCallback((Inventory)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Playfield_Entity_List(PString arg, Action<PlayfieldEntityList> callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Playfield_Entity_List;
-      var finalCallback = callback ?? ((_) => {});
+    		
+    public static void Request_Playfield_Entity_List(PString arg, Action<PlayfieldEntityList> callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback((PlayfieldEntityList)val);
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Playfield_Entity_List,
         arg,
-        (_, val) => finalCallback((PlayfieldEntityList)val),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_Destroy2(IdPlayfield arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_Destroy2;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_Destroy2(IdPlayfield arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_Destroy2,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_Export(EntityExportInfo arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_Export;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_Export(EntityExportInfo arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_Export,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
     }
 	
-		
-    public static void Request_Entity_SetName(IdPlayfieldName arg, Action callback = null, Action<ErrorInfo> onError = null){
-      var cmdid = CmdId.Request_Entity_SetName;
-      var finalCallback = callback ?? (() => {});
+    		
+    public static void Request_Entity_SetName(IdPlayfieldName arg, Action callback = null, Action<ErrorInfo> onError = null){     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = (_, val) => callback();
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.Request_Entity_SetName,
         arg,
-        (_, val) => finalCallback(),
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);

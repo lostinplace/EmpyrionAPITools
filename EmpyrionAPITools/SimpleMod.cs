@@ -2,12 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Eleon.Modding;
 
 namespace EmpyrionAPITools
 {
   public abstract partial class SimpleMod : ModInterface
   {
+
+    protected List<ChatCommand> ChatCommands { get; set; } = new List<ChatCommand>();
+
+    protected bool verbose
+    {
+      set
+      {
+        Broker.verbose = value;
+      }
+      get
+      {
+        return Broker.verbose;
+      }
+    }
+
+    ChatCommandManager ccm;
+
     public delegate void APIEventHandler(CmdId eventId, ushort seqNr, object data);
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
@@ -28,6 +46,7 @@ namespace EmpyrionAPITools
     void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
     {
       Broker.HandleGameEvent(eventId, seqNr, data);
+      if (eventId == CmdId.Event_ChatMessage) SimpleMod_ProcessChatCommands((ChatInfo)data);
 
       API_Message_Received?.Invoke(eventId, seqNr, data);
     }
@@ -40,8 +59,17 @@ namespace EmpyrionAPITools
     void ModInterface.Game_Start(ModGameAPI dediAPI)
     {
       Broker.api = dediAPI;
-      Broker.verbose = true;
-      this.Initialize(dediAPI);
+      this.Initialize(dediAPI);     
+      
+      this.ccm = new ChatCommandManager(this.ChatCommands);
+    }
+
+    private void SimpleMod_ProcessChatCommands(ChatInfo obj)
+    {
+      var match = ccm.MatchCommand(obj.msg);
+      if (match == null) return;
+      log(match.ToString());
+      match.command.handler(obj, match.parameters);
     }
 
     void ModInterface.Game_Update()
@@ -51,7 +79,12 @@ namespace EmpyrionAPITools
 
     public void log(string msg)
     {
-      Broker.log(() => msg);
+      Broker.log(msg);
+    }
+
+    public void log(Func<string> msg)
+    {
+      Broker.log(msg);
     }
   }
 }

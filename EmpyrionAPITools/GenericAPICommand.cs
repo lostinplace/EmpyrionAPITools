@@ -47,8 +47,8 @@ namespace EmpyrionAPITools
 
             this.call = APIManifest.APIRequestTable[cmdId];
             this.argument = argument;
-            this.responseHandler = responseHandler != null ? responseHandler : defaultResponseHandler;
-            this.errorHandler = errorHandler != null ? errorHandler : defaultErrorHandler;
+            this.responseHandler = responseHandler ?? defaultResponseHandler;
+            this.errorHandler = errorHandler ?? defaultErrorHandler;
             this.validated = validate ? validateArguments(this.call, this.argument, this.responseHandler) : validate;
         }
 

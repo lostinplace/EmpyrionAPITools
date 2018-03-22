@@ -26,22 +26,22 @@ namespace EmpyrionAPITools
     
     var callbackBaseType = signature.GetSubTypeForArg("callback");
     
-    var defaultCallback = "(() => {})";
-    var castCallback = "(_, val) => finalCallback()";
+    var castCallback = "(_, val) => callback()";
     if(callbackBaseType != null){
-      defaultCallback = "((_) => {})";
-      castCallback = $"(_, val) => finalCallback(({callbackBaseType})val)";
+      castCallback = $"(_, val) => callback(({callbackBaseType})val)";
     }
+
   #>
 
-		
-    public static void <#=signature#>{
-      var cmdid = CmdId.<#=signature.methodName#>;
-      var finalCallback = callback ?? <#=defaultCallback#>;
+    		
+    public static void <#=signature#>{     
+      Action<CmdId, object> wiredCallback = null;
+      if(callback != null) wiredCallback = <#=castCallback#>;
+      
       var apiCmd = new GenericAPICommand(
-        cmdid,
+        CmdId.<#=signature.methodName#>,
         <#=signature.HasArgWithName("arg") ? "arg" : "null" #>,
-        <#=castCallback#>,
+        wiredCallback,
         onError ?? noOpErrorHandler
       );
       Broker.Execute(apiCmd);
