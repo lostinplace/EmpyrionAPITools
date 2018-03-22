@@ -19,7 +19,6 @@ using System.Linq;
 namespace EmpyrionAPITools
 {
   public static partial class Broker {
-
   <#foreach(var item in APIManifest.RequestManifest){
     var expectedResponse = APIManifest.APIRequestResponseTable[item.CmdId];
     var signature = generateMethodSignature(item);
@@ -32,7 +31,6 @@ namespace EmpyrionAPITools
     }
 
   #>
-
     		
     public static void <#=signature#>{     
       Action<CmdId, object> wiredCallback = null;
