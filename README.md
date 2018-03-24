@@ -180,7 +180,7 @@ This will produce a single DLL, that you can copy into a folder on your server i
 
 Note that you must restart the server in order for the mod to be loaded.
 
-#### What is a ChatCommand?
+### What is a ChatCommand?
 
 The `ChatCommands` API is a way of describing functions that can be invoked with text entry to the chat box (using the "." in-game).
 
