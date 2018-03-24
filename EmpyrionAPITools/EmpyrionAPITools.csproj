@@ -57,6 +57,7 @@
       <DependentUpon>Autowire.APIRequests.tt</DependentUpon>
     </Compile>
     <Compile Include="ChatCommand.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="GenericAPICommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SimpleMod.cs" />

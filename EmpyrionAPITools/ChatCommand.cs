@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Eleon.Modding;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using EmpyrionAPIDefinitions;
 
 namespace EmpyrionAPITools
 {
@@ -16,19 +17,45 @@ namespace EmpyrionAPITools
     public readonly string invocationPattern;
     public ChatCommandHandler handler;
     public readonly string description;
+    public readonly PermissionType minimumPermissionLevel;
+
     public List<string> paramNames
     {
       get;
       private set;
     }
 
-    public ChatCommand(string invocationPattern, ChatCommandHandler handler, string description = "")
+    public ChatCommand(string invocationPattern, ChatCommandHandler handler, string description = "", PermissionType minimumPermissionLevel = PermissionType.Player)
     {
       this.invocationPattern = invocationPattern;
       this.handler = handler;
       this.description = description;
+      this.minimumPermissionLevel = minimumPermissionLevel;
       var re = new Regex(invocationPattern);
       paramNames = re.GetGroupNames().Where(x => x != "0").ToList();
+    }
+
+    private static Regex extractionPattern = new Regex(@"\(\?<([\w_]+)>[^)]+\)", RegexOptions.Compiled);
+
+    public static string PatternToParamString(string pattern)
+    {
+      var result = pattern;
+      var matches = extractionPattern.Matches(result);
+      
+      foreach (Match item in matches)
+      {
+        result = result.Replace(item.Value, $@"{{{item.Groups[1].Value}}}");
+      }
+      return result;
+    }
+
+    public override string ToString()
+    {
+      var permissionLevelString = this.minimumPermissionLevel != PermissionType.Player ? $"({this.minimumPermissionLevel.ToString()}) " : "";
+      var invocationPatternString = PatternToParamString(this.invocationPattern);
+      var hasDescription = this.description != "";
+      if (!hasDescription) return invocationPatternString;
+      return $@"{invocationPatternString} : {permissionLevelString}{this.description}";
     }
   }
 
@@ -52,7 +79,7 @@ namespace EmpyrionAPITools
     {
       this.pattern = pattern;
       this.patternDict = patternDict;
-      var gn = pattern.GetGroupNames().Where(x => x != "0").ToList();
+      var gn = pattern.GetGroupNames().Where(x => x.StartsWith("cmd")).ToList();
       this.CommandGroupNames = new ReadOnlyCollection<string>(gn);
     }
 
@@ -91,7 +118,6 @@ namespace EmpyrionAPITools
 
   public class ChatCommandManager
   {
-
     public readonly ChatCommandSuperPattern superPattern;
     
     public ChatCommandManager(List<ChatCommand> commandList)

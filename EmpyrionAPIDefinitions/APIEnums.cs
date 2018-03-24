@@ -65,6 +65,17 @@ namespace EmpyrionAPIDefinitions
 
 
   /// <summary>
+  /// Used to set message priority and alert/sound
+  /// </summary>
+  public enum MessagePriorityType : byte
+  {
+    Alarm = 0,
+    Message = 1,
+    Info = 2
+  }
+
+
+  /// <summary>
   /// Tracks the type values on StatisticsParam 
   /// </summary>
   //public enum StatisticsType

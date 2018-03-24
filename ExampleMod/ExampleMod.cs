@@ -21,14 +21,35 @@ namespace ExampleMod
       this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
-      this.ChatCommands.Add(new ChatCommand(@"repeat (?<repeat>\S+)", ChatCommand_TestMessage));
-      this.ChatCommands.Add(new ChatCommand(@"loudly (?<yellthis>.+)", (data, args) => {
+      this.ChatCommands.Add(new ChatCommand(@"/repeat (?<repeat>\S+)", ChatCommand_TestMessage));
+      this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", (data, args) => {
         var msg = new IdMsgPrio()
         {
           id = data.playerId,
           msg = $"{args["yellthis"].ToUpper()}!!!!!"
         };
         this.Request_InGameMessage_SinglePlayer(msg);
+      }));
+
+      this.ChatCommands.Add(new ChatCommand(@"/explosion", (data, __) => {
+        this.Request_ShowDialog_SinglePlayer("BOOM!".ToIdMsgPrio(data.playerId));
+      }, "blows it up", PermissionType.Moderator));
+
+      this.ChatCommands.Add(new ChatCommand(@"/help", (data, __) => {
+        this.Request_Player_Info(data.playerId.ToId(), (info) =>
+        {
+          var playerPermissionLevel = (PermissionType)info.permission;
+          var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
+          
+          var lines = this.GetChatCommandsForPermissionLevel(playerPermissionLevel)
+            .Select(x => x.ToString())
+            .OrderBy(x => x.Length).ToList();
+
+          lines.Insert(0, header);
+
+          var msg = String.Join("\n", lines.ToArray() ).ToIdMsgPrio(data.playerId);
+          Request_ShowDialog_SinglePlayer(msg);
+        });
       }));
     }
 

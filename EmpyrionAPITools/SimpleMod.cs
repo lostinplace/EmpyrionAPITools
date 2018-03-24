@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Eleon.Modding;
+using EmpyrionAPIDefinitions;
 
 namespace EmpyrionAPITools
 {
@@ -24,7 +25,7 @@ namespace EmpyrionAPITools
       }
     }
 
-    ChatCommandManager ccm;
+    private ChatCommandManager ChatCommandManager;
 
     public delegate void APIEventHandler(CmdId eventId, ushort seqNr, object data);
 
@@ -40,6 +41,12 @@ namespace EmpyrionAPITools
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event UpdateHandler Update_Received;
+
+
+    protected List<ChatCommand> GetChatCommandsForPermissionLevel(PermissionType permission)
+    {
+      return this.ChatCommands.Where(x => x.minimumPermissionLevel <= permission).ToList();
+    }
 
     public abstract void Initialize(ModGameAPI dediAPI);
 
@@ -61,14 +68,21 @@ namespace EmpyrionAPITools
       Broker.api = dediAPI;
       this.Initialize(dediAPI);     
       
-      this.ccm = new ChatCommandManager(this.ChatCommands);
+      this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
     }
 
     private void SimpleMod_ProcessChatCommands(ChatInfo obj)
     {
-      var match = ccm.MatchCommand(obj.msg);
+      var match = ChatCommandManager.MatchCommand(obj.msg);
       if (match == null) return;
-      log(match.ToString());
+      if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
+      {
+        this.Request_Player_Info(obj.playerId.ToId(), (info) => {
+          if (info.permission < (int)match.command.minimumPermissionLevel) return;
+          match.command.handler(obj, match.parameters);
+        });
+        return;
+      }
       match.command.handler(obj, match.parameters);
     }
 
