@@ -50,6 +50,39 @@ namespace EmpyrionAPITools
 
     public abstract void Initialize(ModGameAPI dediAPI);
 
+    /// <summary>
+    /// Simple way to send an alert to the specified player
+    /// </summary>
+    /// <param name="playerId">id of player to inform</param>
+    /// <param name="message">message</param>
+    protected void AlertPlayer(int playerId, string message)
+    {
+      MessagePlayer(playerId, message, MessagePriorityType.Alarm);
+    }
+
+    /// <summary>
+    /// Simple way to send info to the specified player
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="message"></param>
+    protected void InformPlayer(int playerId, string message)
+    {
+      MessagePlayer(playerId, message, MessagePriorityType.Info);
+    }
+
+    /// <summary>
+    /// Simple way to send a message to the specified player
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="message"></param>
+    /// <param name="priority"></param>
+    protected void MessagePlayer(int playerId, string message, MessagePriorityType priority = MessagePriorityType.Message)
+    {
+      var msg = message.ToIdMsgPrio(playerId, priority);
+      this.Request_InGameMessage_SinglePlayer(msg);
+    }
+
+
     void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
     {
       Broker.HandleGameEvent(eventId, seqNr, data);
