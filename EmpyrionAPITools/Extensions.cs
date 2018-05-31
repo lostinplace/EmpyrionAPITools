@@ -38,5 +38,15 @@ namespace EmpyrionAPITools
         time = duration
       };
     }
+
+    /// <summary>
+    /// Easy way to convert string to pstring
+    /// </summary>
+    /// <param name="msg">string to convert</param>
+    /// <returns>the appropriate pstring</returns>
+    public static PString ToPString(this string msg)
+    {
+      return new PString(msg);
+    }
   }
 }

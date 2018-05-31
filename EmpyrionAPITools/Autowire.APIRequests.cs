@@ -465,9 +465,9 @@ namespace EmpyrionAPITools
       Broker.Execute(apiCmd);
     }
       		
-    public static void Request_ShowDialog_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){     
+    public static void Request_ShowDialog_SinglePlayer(DialogBoxData arg, Action<IdAndIntValue> callback = null, Action<ErrorInfo> onError = null){     
       Action<CmdId, object> wiredCallback = null;
-      if(callback != null) wiredCallback = (_, val) => callback();
+      if(callback != null) wiredCallback = (_, val) => callback((IdAndIntValue)val);
       
       var apiCmd = new GenericAPICommand(
         CmdId.Request_ShowDialog_SinglePlayer,
@@ -686,7 +686,7 @@ namespace EmpyrionAPITools
       Broker.Request_InGameMessage_Faction(arg, callback, onError);
     }
     
-	  public void Request_ShowDialog_SinglePlayer(IdMsgPrio arg, Action callback = null, Action<ErrorInfo> onError = null){
+	  public void Request_ShowDialog_SinglePlayer(DialogBoxData arg, Action<IdAndIntValue> callback = null, Action<ErrorInfo> onError = null){
       Broker.Request_ShowDialog_SinglePlayer(arg, callback, onError);
     }
     

@@ -29,6 +29,7 @@ namespace EmpyrionAPIDefinitions
       CmdId = cmdId;
       ParamType = paramType;
       ResponseCmdId = responseCmdId;
+      
     }
   }
 
@@ -71,7 +72,7 @@ namespace EmpyrionAPIDefinitions
       new APIRequest(CmdId.Request_InGameMessage_SinglePlayer, typeof(IdMsgPrio), CmdId.Event_Ok),
       new APIRequest(CmdId.Request_InGameMessage_AllPlayers, typeof(IdMsgPrio), CmdId.Event_Ok),
       new APIRequest(CmdId.Request_InGameMessage_Faction, typeof(IdMsgPrio), CmdId.Event_Ok),
-      new APIRequest(CmdId.Request_ShowDialog_SinglePlayer, typeof(IdMsgPrio), CmdId.Event_Ok),
+      new APIRequest(CmdId.Request_ShowDialog_SinglePlayer, typeof(DialogBoxData), CmdId.Event_DialogButtonIndex),
       new APIRequest(CmdId.Request_Player_GetAndRemoveInventory, typeof(Id), CmdId.Event_Player_GetAndRemoveInventory),
       new APIRequest(CmdId.Request_Playfield_Entity_List, typeof(PString), CmdId.Event_Playfield_Entity_List),
       new APIRequest(CmdId.Request_Entity_Destroy2, typeof(IdPlayfield), CmdId.Event_Ok),
@@ -113,6 +114,7 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_Playfield_List, typeof(PlayfieldList)),
       new APIEvent(CmdId.Event_Playfield_Stats, typeof(PlayfieldStats)),
       new APIEvent(CmdId.Event_Structure_BlockStatistics, typeof(IdStructureBlockInfo)),
+      new APIEvent(CmdId.Event_DialogButtonIndex, typeof(IdAndIntValue))
     };
 
     public static Dictionary<CmdId, APIEvent> APIEventTable = EventManifest.ToDictionary(x => x.CmdId);

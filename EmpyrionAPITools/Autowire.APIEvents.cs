@@ -556,6 +556,23 @@ namespace EmpyrionAPITools
           eventTable[CmdId.Event_Structure_BlockStatistics] = value;
       }
     }
+    
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+    public static event Action<IdAndIntValue> Event_DialogButtonIndex
+    {
+      add {
+        if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
+          eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] + value;
+        else
+          eventTable[CmdId.Event_DialogButtonIndex] = value;
+      }
+      remove {
+        if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
+          eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] - value;
+        else
+          eventTable[CmdId.Event_DialogButtonIndex] = value;
+      }
+    }
       
   }
 
@@ -941,6 +958,18 @@ namespace EmpyrionAPITools
       }
       remove {
         Broker.Event_Structure_BlockStatistics -= value;
+      }
+    }
+
+        
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+    public event Action<IdAndIntValue> Event_DialogButtonIndex
+    {
+      add {
+        Broker.Event_DialogButtonIndex += value;
+      }
+      remove {
+        Broker.Event_DialogButtonIndex -= value;
       }
     }
 

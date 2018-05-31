@@ -32,8 +32,20 @@ namespace ExampleMod
       }));
 
       this.ChatCommands.Add(new ChatCommand(@"/explosion", (data, __) => {
-        this.Request_ShowDialog_SinglePlayer("BOOM!".ToIdMsgPrio(data.playerId));
+        var dialogData = new DialogBoxData()
+        {
+          Id = data.playerId,
+          MsgText = "BOOM!",
+          PosButtonText = "yes",
+          NegButtonText = "No"
+        };
+        this.Request_ShowDialog_SinglePlayer(dialogData, (result) => {
+          var resultInterpreted = result.Value == 0 ? "YES": "NO";
+          this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId));
+        });
       }, "blows it up", PermissionType.Moderator));
+
+      
 
       this.ChatCommands.Add(new ChatCommand(@"/help", (data, __) => {
         this.Request_Player_Info(data.playerId.ToId(), (info) =>
@@ -47,8 +59,14 @@ namespace ExampleMod
 
           lines.Insert(0, header);
 
-          var msg = String.Join("\n", lines.ToArray() ).ToIdMsgPrio(data.playerId);
-          Request_ShowDialog_SinglePlayer(msg);
+          
+          var dialogData = new DialogBoxData()
+          {
+            Id = data.playerId,
+            MsgText = String.Join("\n", lines.ToArray())
+          };
+
+          Request_ShowDialog_SinglePlayer(dialogData);
         });
       }));
     }
