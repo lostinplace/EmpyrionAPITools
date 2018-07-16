@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Eleon.Modding;
+using System.Xml.Linq;
 
 namespace EmpyrionAPIDefinitions
 {
@@ -122,5 +123,25 @@ namespace EmpyrionAPIDefinitions
     public static Dictionary<CmdId, APIEvent> APIRequestResponseTable = RequestManifest
       .Select(x => new KeyValuePair<CmdId, APIEvent>(x.CmdId, APIEventTable[x.ResponseCmdId]))
       .ToDictionary(x=>x.Key, x=>x.Value);
+
+    public static Dictionary<Type, string> keyFields = new Dictionary<Type, string>()
+    {
+      {typeof(Inventory), "playerId" },
+      {typeof(IdAndIntValue), "Id"},
+      {typeof(Id), "id"},
+      {typeof(IdStructureBlockInfo), "id" },
+      {typeof(PlayfieldStats), "playfield" },
+      {typeof(PlayfieldEntityList), "playfield"},
+      //{typeof(IdList),  null}
+      {typeof(ItemExchangeInfo), "id"},
+      {typeof(Inventory), "playerId"},
+      {typeof(IdCredits), "id"},
+      //{typeof(GlobalStructureList), null}
+      {typeof(IdPositionRotation), "id"},
+      {typeof(AlliancesFaction), "faction1Id"},
+
+
+
+    };
   }
 }

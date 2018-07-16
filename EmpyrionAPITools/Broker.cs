@@ -23,7 +23,7 @@ namespace EmpyrionAPITools
 
     public static bool verbose { get; set; }
 
-    private static Dictionary<ushort, List<GenericAPICommand>> commandTracker = new Dictionary<ushort, List<GenericAPICommand>>();
+    public static Dictionary<ushort, List<GenericAPICommand>> commandTracker = new Dictionary<ushort, List<GenericAPICommand>>();
 
     public static GenericAPICommand Execute(GenericAPICommand command)
     {
@@ -42,13 +42,12 @@ namespace EmpyrionAPITools
       var apiEvent = new apiEvent(eventId, seqNr, data);
       log(() => $"receiving event {eventId.ToString()}:{seqNr}");
 
+      if (!commandTracker.ContainsKey(seqNr)) return;
+
       Delegate handler;
       
       if (eventTable.TryGetValue(eventId, out handler))
         handler.DynamicInvoke(new object[] { data });
-
-      
-      if (!commandTracker.ContainsKey(seqNr)) return;
       
       var outstandingRequestList = commandTracker[seqNr];
       
