@@ -25,6 +25,11 @@ namespace EmpyrionAPITools
       }
     }
 
+    protected LogLevel LogLevel {
+        get { return Broker.LogLevel; }
+        set { Broker.LogLevel = value; }
+    }
+
     private ChatCommandManager ChatCommandManager;
 
     public delegate void APIEventHandler(CmdId eventId, ushort seqNr, object data);
@@ -129,9 +134,19 @@ namespace EmpyrionAPITools
       Broker.log(msg);
     }
 
+    public void log(string msg, LogLevel aLevel)
+    {
+      Broker.log(msg, aLevel);
+    }
+
     public void log(Func<string> msg)
     {
       Broker.log(msg);
+    }
+
+    public void log(Func<string> msg, LogLevel aLevel)
+    {
+      Broker.log(msg, aLevel);
     }
   }
 }
