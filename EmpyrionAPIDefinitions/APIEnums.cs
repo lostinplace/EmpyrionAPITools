@@ -5,6 +5,11 @@ using System.Text;
 
 namespace EmpyrionAPIDefinitions
 {
+  public enum LogLevel { 
+    Debug,
+    Message,
+    Error
+  }
 
   /// <summary>
   /// For tracking the entity types in EntitySpawnInfo and GlobalStructureInfo

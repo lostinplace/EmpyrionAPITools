@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using EmpyrionAPIDefinitions;
 
 namespace EmpyrionAPITools
 {
@@ -22,6 +23,7 @@ namespace EmpyrionAPITools
     }
 
     public static bool verbose { get; set; }
+    public static LogLevel LogLevel { get; set; }
 
     private static Dictionary<ushort, List<GenericAPICommand>> commandTracker = new Dictionary<ushort, List<GenericAPICommand>>();
 
@@ -72,16 +74,25 @@ namespace EmpyrionAPITools
 
     public static void log(string message)
     {
-      if(verbose)
+        log(message, LogLevel.Debug);
+    }
+
+    public static void log(string message, LogLevel aLevel)
+    {
+      if(verbose && LogLevel <= aLevel)
           api.Console_Write(message);
     }
 
     public static void log(System.Func<string> message)
     {
-      if(verbose)
-          api.Console_Write(message());
+        log(message, LogLevel.Debug);
     }
 
+    public static void log(System.Func<string> message, LogLevel aLevel)
+    {
+      if(verbose && LogLevel <= aLevel)
+          api.Console_Write(message());
+    }
     public static void noOpErrorHandler(ErrorInfo info) { }
   }      
 }
