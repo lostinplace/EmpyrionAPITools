@@ -91,7 +91,7 @@ namespace EmpyrionAPITools
     void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
     {
       Broker.HandleGameEvent(eventId, seqNr, data);
-      if (eventId == CmdId.Event_ChatMessage) SimpleMod_ProcessChatCommands((ChatInfo)data);
+      if (eventId == CmdId.Event_ChatMessageEx) SimpleMod_ProcessChatCommands((ChatMsgData)data);
 
       API_Message_Received?.Invoke(eventId, seqNr, data);
     }
@@ -109,19 +109,20 @@ namespace EmpyrionAPITools
       this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
     }
 
-    private void SimpleMod_ProcessChatCommands(ChatInfo obj)
+    private void SimpleMod_ProcessChatCommands(ChatMsgData data)
     {
-      var match = ChatCommandManager.MatchCommand(obj.msg);
+      var match = ChatCommandManager.MatchCommand(data.Text);
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
       {
-        this.Request_Player_Info(obj.playerId.ToId(), (info) => {
+        this.Request_Player_Info(data.SenderEntityId.ToId(), (info) =>
+        {
           if (info.permission < (int)match.command.minimumPermissionLevel) return;
-          match.command.handler(obj, match.parameters);
+          match.command.handler(data, match.parameters);
         });
         return;
       }
-      match.command.handler(obj, match.parameters);
+      match.command.handler(data, match.parameters);
     }
 
     void ModInterface.Game_Update()

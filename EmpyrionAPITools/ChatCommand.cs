@@ -12,7 +12,7 @@ namespace EmpyrionAPITools
 {
   public class ChatCommand
   {
-    public delegate void ChatCommandHandler(ChatInfo info, Dictionary<string, string> arguments = null);
+    public delegate void ChatCommandHandler(ChatMsgData info, Dictionary<string, string> arguments = null);
 
     public readonly string invocationPattern;
     public ChatCommandHandler handler;

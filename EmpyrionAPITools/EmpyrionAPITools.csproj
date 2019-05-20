@@ -49,13 +49,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Autowire.APIEvents.tt</DependentUpon>
     </Compile>
-    <Compile Include="Broker.cs" />
-    <Compile Include="Broker.Types.cs" />
     <Compile Include="Autowire.APIRequests.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Autowire.APIRequests.tt</DependentUpon>
     </Compile>
+    <Compile Include="Broker.cs" />
+    <Compile Include="Broker.Types.cs" />
     <Compile Include="ChatCommand.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GenericAPICommand.cs" />

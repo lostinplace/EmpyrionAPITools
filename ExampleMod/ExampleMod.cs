@@ -21,34 +21,34 @@ namespace ExampleMod
       this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
-      this.ChatCommands.Add(new ChatCommand(@"/repeat (?<repeat>\S+)", ChatCommand_TestMessage));
+      this.ChatCommands.Add(new ChatCommand(@"::repeat (?<repeat>\S+)", ChatCommand_TestMessage));
       this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", (data, args) => {
         var msg = new IdMsgPrio()
         {
-          id = data.playerId,
+          id = data.SenderEntityId,
           msg = $"{args["yellthis"].ToUpper()}!!!!!"
         };
         this.Request_InGameMessage_SinglePlayer(msg);
       }));
 
-      this.ChatCommands.Add(new ChatCommand(@"/explosion", (data, __) => {
+      this.ChatCommands.Add(new ChatCommand(@"::explosion", (data, __) => {
         var dialogData = new DialogBoxData()
         {
-          Id = data.playerId,
+          Id = data.SenderEntityId,
           MsgText = "BOOM!",
           PosButtonText = "yes",
           NegButtonText = "No"
         };
         this.Request_ShowDialog_SinglePlayer(dialogData, (result) => {
           var resultInterpreted = result.Value == 0 ? "YES": "NO";
-          this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.playerId));
+          this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.SenderEntityId));
         });
       }, "blows it up", PermissionType.Moderator));
 
       
 
-      this.ChatCommands.Add(new ChatCommand(@"/help", (data, __) => {
-        this.Request_Player_Info(data.playerId.ToId(), (info) =>
+      this.ChatCommands.Add(new ChatCommand(@"::help", (data, __) => {
+        this.Request_Player_Info(data.SenderEntityId.ToId(), (info) =>
         {
           var playerPermissionLevel = (PermissionType)info.permission;
           var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
@@ -58,11 +58,10 @@ namespace ExampleMod
             .OrderBy(x => x.Length).ToList();
 
           lines.Insert(0, header);
-
           
           var dialogData = new DialogBoxData()
           {
-            Id = data.playerId,
+            Id = data.SenderEntityId,
             MsgText = String.Join("\n", lines.ToArray())
           };
 
@@ -71,12 +70,12 @@ namespace ExampleMod
       }));
     }
 
-    private void ChatCommand_TestMessage(ChatInfo data, Dictionary<string, string> args)
+    private void ChatCommand_TestMessage(ChatMsgData data, Dictionary<string, string> args)
     {
       var repeating = args["repeat"];
       var msg = new IdMsgPrio()
       {
-        id = data.playerId,
+        id = data.SenderEntityId,
         msg = $"{repeating} {repeating} {repeating}!"
       };
       this.Request_InGameMessage_SinglePlayer(msg);

@@ -114,7 +114,8 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_Playfield_List, typeof(PlayfieldList)),
       new APIEvent(CmdId.Event_Playfield_Stats, typeof(PlayfieldStats)),
       new APIEvent(CmdId.Event_Structure_BlockStatistics, typeof(IdStructureBlockInfo)),
-      new APIEvent(CmdId.Event_DialogButtonIndex, typeof(IdAndIntValue))
+      new APIEvent(CmdId.Event_DialogButtonIndex, typeof(IdAndIntValue)),
+      new APIEvent(CmdId.Event_ChatMessageEx, typeof(ChatMsgData)),
     };
 
     public static Dictionary<CmdId, APIEvent> APIEventTable = EventManifest.ToDictionary(x => x.CmdId);
