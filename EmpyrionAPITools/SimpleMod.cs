@@ -8,7 +8,7 @@ using EmpyrionAPIDefinitions;
 
 namespace EmpyrionAPITools
 {
-  public abstract partial class SimpleMod : ModInterface
+  public abstract partial class SimpleMod : ModInterface, IMod
   {
 
     protected List<ChatCommand> ChatCommands { get; set; } = new List<ChatCommand>();
@@ -26,8 +26,8 @@ namespace EmpyrionAPITools
     }
 
     protected LogLevel LogLevel {
-        get { return Broker.LogLevel; }
-        set { Broker.LogLevel = value; }
+      get { return Broker.LogLevel; }
+      set { Broker.LogLevel = value; }
     }
 
     private ChatCommandManager ChatCommandManager;
@@ -109,17 +109,16 @@ namespace EmpyrionAPITools
       this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
     }
 
-    private void SimpleMod_ProcessChatCommands(ChatMsgData data)
+    private async void SimpleMod_ProcessChatCommands(ChatMsgData data)
     {
       var match = ChatCommandManager.MatchCommand(data.Text);
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
       {
-        this.Request_Player_Info(data.SenderEntityId.ToId(), (info) =>
-        {
-          if (info.permission < (int)match.command.minimumPermissionLevel) return;
-          match.command.handler(data, match.parameters);
-        });
+        var player = await Request_Player_Info(data.SenderEntityId.ToId());
+        if(player.permission < (int)match.command.minimumPermissionLevel) return;
+        match.command.handler(data, match.parameters);
+     
         return;
       }
       match.command.handler(data, match.parameters);
@@ -148,6 +147,18 @@ namespace EmpyrionAPITools
     public void log(Func<string> msg, LogLevel aLevel)
     {
       Broker.log(msg, aLevel);
+    }
+
+    protected IModApi modAPI { get; set; }
+
+    void IMod.Init(IModApi modAPI)
+    {
+      this.modAPI = modAPI;
+    }
+
+    void IMod.Shutdown()
+    {
+      log("shutting down");
     }
   }
 }

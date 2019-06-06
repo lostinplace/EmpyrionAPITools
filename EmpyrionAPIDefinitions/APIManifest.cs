@@ -8,8 +8,8 @@ namespace EmpyrionAPIDefinitions
 {
   public class APIEvent
   {
-    public CmdId CmdId;
-    public Type ParamType;
+    public CmdId CmdId { get; set; }
+    public Type ParamType { get; set; }
 
     public APIEvent(CmdId cmdId, Type paramType)
     {
@@ -18,24 +18,103 @@ namespace EmpyrionAPIDefinitions
     }
   }
 
+  public class TypeMatchValidator
+  {
+    public Type ParamType { get; private set; }
+    public Type DataType { get; private set; }
+
+    public Func<object, object, bool> validate { get; private set; }
+
+    public TypeMatchValidator(Type ParamType, Type DataType, Func<object, object, bool> validator)
+    {
+      this.ParamType = ParamType;
+      this.DataType = DataType;
+      this.validate = validator;
+    }
+  }
+
+  public class TypeMatchValidator<ParamType, DataType>
+  {
+
+    public Func<ParamType, DataType, bool> validate { get; private set; }
+
+    public TypeMatchValidator(Func<ParamType, DataType, bool> validator) {
+      this.validate = validator;
+    }
+
+    public TypeMatchValidator ToGeneric(){
+      Func<object, object, bool> newValidator = (a, b) => validate((ParamType)a, (DataType)b);
+      return new TypeMatchValidator(typeof(ParamType), typeof(DataType), newValidator);
+    }
+  }
+
+  public class RequestMethodSignature
+  {
+    public string Name { get; set; }
+    public Type ParamType { get; set; }
+    public Type ResponseType { get; set; }
+
+    private static string getTypeName(Type aType) => aType == null ? "object" : aType.Name;
+
+    public string ResponseTypeName { get => getTypeName(ResponseType); }
+    public string RequestTypeName { get => getTypeName(ParamType); }
+
+    public string ObsoleteSignature {
+      get
+      {
+        var returnType = ResponseType == null ? "Task<object>" : $"Task<{ResponseTypeName}>";
+        var argPart = ParamType == null ? "" : $"{RequestTypeName} param,";
+        var callBackPart = ResponseType == null ? "Action callback," : $"Action<{ResponseTypeName}> callback,";
+        return $"{returnType} {Name}({argPart} {callBackPart} Action<ErrorInfo> onError = null)";
+      }
+    }
+
+    public string Signature
+    {
+      get
+      {
+        var returnType = ResponseType == null ? "Task<object>" : $"Task<{ResponseTypeName}>";
+        var argPart = ParamType == null ? "" : $"{RequestTypeName} param";
+        return $"{returnType} {Name}({argPart})";
+      }
+    }
+
+    public string BrokerCall
+    {
+      get
+      {
+        var argPart = ParamType == null ? "null" : "param";
+        return $"return Broker.CreateCommandWithArgAndReturn<{RequestTypeName},{ResponseTypeName}>(CmdId.{Name}, {argPart});";
+      }
+    }
+
+    public string ObsoleteBrokerCall
+    {
+      get
+      {
+        var argPart = ParamType == null ? "null" : "param";
+        return $"return Broker.CreateCommandWithArgAndReturn<{RequestTypeName},{ResponseTypeName}>(CmdId.{Name}, {argPart}, callback, onError);";
+      }
+    }
+  }
+
   public class APIRequest
   {
-    public CmdId CmdId;
-    public Type ParamType;
-    public CmdId ResponseCmdId;
+    public CmdId CmdId { get; set; }
+    public Type ParamType { get; set; }
+    public CmdId ResponseCmdId { get; set; }
 
     public APIRequest(CmdId cmdId, Type paramType, CmdId responseCmdId)
     {
       CmdId = cmdId;
       ParamType = paramType;
       ResponseCmdId = responseCmdId;
-      
     }
   }
 
   public static class APIManifest
   {
-    public static List<APIRequest> RequestManifest = new List<APIRequest>()
+    public static List<APIRequest> RequestManifest { get; private set; } = new List<APIRequest>()
     {
       new APIRequest(CmdId.Request_Playfield_List, null, CmdId.Event_Playfield_List),
       new APIRequest(CmdId.Request_Playfield_Stats, typeof(PString), CmdId.Event_Playfield_Stats),
@@ -80,7 +159,7 @@ namespace EmpyrionAPIDefinitions
       new APIRequest(CmdId.Request_Entity_SetName, typeof(IdPlayfieldName), CmdId.Event_Ok),
     };
 
-    public static List<APIEvent> EventManifest = new List<APIEvent>()
+    public static List<APIEvent> EventManifest { get; private set; } = new List<APIEvent>()
     {
       new APIEvent(CmdId.Event_Playfield_Loaded, typeof(PlayfieldLoad)),
       new APIEvent(CmdId.Event_Playfield_Unloaded, typeof(PlayfieldLoad)),
@@ -118,10 +197,49 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_ChatMessageEx, typeof(ChatMsgData)),
     };
 
-    public static Dictionary<CmdId, APIEvent> APIEventTable = EventManifest.ToDictionary(x => x.CmdId);
-    public static Dictionary<CmdId, APIRequest> APIRequestTable = RequestManifest.ToDictionary(x => x.CmdId);
-    public static Dictionary<CmdId, APIEvent> APIRequestResponseTable = RequestManifest
+    public static List<TypeMatchValidator> validators { get; private set; } = new List<EmpyrionAPIDefinitions.TypeMatchValidator>()
+    {
+      new TypeMatchValidator<PString, PlayfieldStats>((a,b)=>a.pstr == b.playfield).ToGeneric(),
+      new TypeMatchValidator<Id, IdStructureBlockInfo>((a,b)=>a.id == b.id).ToGeneric(),
+      new TypeMatchValidator<Id, PlayerInfo>((a,b)=>a.id == b.entityId).ToGeneric(),
+      new TypeMatchValidator<Id, Inventory>((a,b)=>a.id == b.playerId).ToGeneric(),
+      new TypeMatchValidator<Id, IdCredits>((a,b)=>a.id == b.id).ToGeneric(),
+      new TypeMatchValidator<IdCredits, IdCredits>((a,b)=>a.id == b.id).ToGeneric(),
+      new TypeMatchValidator<ItemExchangeInfo, ItemExchangeInfo>((a,b)=>a.id == b.id).ToGeneric(),
+      new TypeMatchValidator<Id, IdPositionRotation>((a,b)=>a.id == b.id).ToGeneric(),
+      new TypeMatchValidator<AlliancesFaction, AlliancesFaction>((a,b)=>a.faction1Id == b.faction1Id && a.faction2Id == b.faction2Id).ToGeneric(),
+      new TypeMatchValidator<DialogBoxData, IdAndIntValue>((a,b)=>a.Id == b.Id).ToGeneric(),
+      new TypeMatchValidator<PString, PlayfieldEntityList>((a,b)=>a.pstr == b.playfield).ToGeneric(),
+    };
+
+    public static TypeMatchValidator getResponseValidatorForRequest(CmdId requestId)
+    {
+      var request = APIRequestTable[requestId];
+      var response = APIRequestResponseTable[requestId];
+      var validator = validators.FirstOrDefault(x => x.ParamType == request.ParamType && x.DataType == response.ParamType);
+      return validator;
+    }
+    
+    public static Dictionary<CmdId, APIEvent> APIEventTable { get; private set; } = EventManifest.ToDictionary(x => x.CmdId);
+    public static Dictionary<CmdId, APIRequest> APIRequestTable { get; private set; } = RequestManifest.ToDictionary(x => x.CmdId);
+    
+    public static Dictionary<CmdId, APIEvent> APIRequestResponseTable { get; private set; } = RequestManifest
       .Select(x => new KeyValuePair<CmdId, APIEvent>(x.CmdId, APIEventTable[x.ResponseCmdId]))
       .ToDictionary(x=>x.Key, x=>x.Value);
+
+    public static Dictionary<CmdId, TypeMatchValidator> RequestResponseValidators { get; private set; } = RequestManifest.Select(x => (x.CmdId, getResponseValidatorForRequest(x.CmdId))).ToDictionary(x => x.Item1, x => x.Item2);
+
+    public static List<RequestMethodSignature> RequestMethodSignatures { get; private set; } = RequestManifest.Select(request =>
+    {
+      var response = APIRequestResponseTable[request.CmdId];
+      return new RequestMethodSignature()
+      {
+        Name = request.CmdId.ToString(),
+        ParamType = request.ParamType,
+        ResponseType = response.ParamType
+      };
+    }).ToList();
+
+
   }
 }

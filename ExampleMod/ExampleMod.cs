@@ -31,7 +31,7 @@ namespace ExampleMod
         this.Request_InGameMessage_SinglePlayer(msg);
       }));
 
-      this.ChatCommands.Add(new ChatCommand(@"::explosion", (data, __) => {
+      this.ChatCommands.Add(new ChatCommand(@"::explosion", async (data, __) => {
         var dialogData = new DialogBoxData()
         {
           Id = data.SenderEntityId,
@@ -39,34 +39,36 @@ namespace ExampleMod
           PosButtonText = "yes",
           NegButtonText = "No"
         };
-        this.Request_ShowDialog_SinglePlayer(dialogData, (result) => {
-          var resultInterpreted = result.Value == 0 ? "YES": "NO";
-          this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.SenderEntityId));
-        });
+        var result = await this.Request_ShowDialog_SinglePlayer(dialogData);
+        
+        var resultInterpreted = result.Value == 0 ? "YES": "NO";
+        this.Request_InGameMessage_SinglePlayer(resultInterpreted.ToIdMsgPrio(data.SenderEntityId));
+        
       }, "blows it up", PermissionType.Moderator));
 
-      
 
-      this.ChatCommands.Add(new ChatCommand(@"::help", (data, __) => {
-        this.Request_Player_Info(data.SenderEntityId.ToId(), (info) =>
+
+      this.ChatCommands.Add(new ChatCommand(@"::help", async (data, __) =>
+      {
+        var info = await this.Request_Player_Info(data.SenderEntityId.ToId());
+
+        var playerPermissionLevel = (PermissionType)info.permission;
+        var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
+
+        var lines = this.GetChatCommandsForPermissionLevel(playerPermissionLevel)
+          .Select(x => x.ToString())
+          .OrderBy(x => x.Length).ToList();
+
+        lines.Insert(0, header);
+
+        var dialogData = new DialogBoxData()
         {
-          var playerPermissionLevel = (PermissionType)info.permission;
-          var header = $"Commands available to {info.playerName}; permission level {playerPermissionLevel}\n";
-          
-          var lines = this.GetChatCommandsForPermissionLevel(playerPermissionLevel)
-            .Select(x => x.ToString())
-            .OrderBy(x => x.Length).ToList();
+          Id = data.SenderEntityId,
+          MsgText = String.Join("\n", lines.ToArray())
+        };
 
-          lines.Insert(0, header);
-          
-          var dialogData = new DialogBoxData()
-          {
-            Id = data.SenderEntityId,
-            MsgText = String.Join("\n", lines.ToArray())
-          };
+        Request_ShowDialog_SinglePlayer(dialogData);
 
-          Request_ShowDialog_SinglePlayer(dialogData);
-        });
       }));
     }
 
@@ -112,52 +114,53 @@ namespace ExampleMod
       this.Request_InGameMessage_AllPlayers(eventMessage);
     }
 
-    private void ExampleMod_Event_HandleLottoChatMessage(ChatInfo obj)
+    private async void ExampleMod_Event_HandleLottoChatMessage(ChatInfo obj)
     {
       log("lotto check");
       if (obj.msg != "lottery") return;
 
-      this.Request_Player_List(list =>
+      var list = await this.Request_Player_List();
+
+      var index = rnd.Next() % list.list.Count;
+      var selectedId = list.list[index];
+
+      var msgParam = new IdMsgPrio()
       {
-        var index = rnd.Next() % list.list.Count;
-        var selectedId = list.list[index];
+        id = selectedId,
+        msg = $"Congratulations!, You Won!"
+      };
 
-        var msgParam = new IdMsgPrio()
-        {
-          id = selectedId,
-          msg = $"Congratulations!, You Won!"
-        };
-
-        var rewardParam = new ItemExchangeInfo()
-        {
-          id = selectedId,
-          buttonText = "ok",
-          title = "test",
-          desc = "testdesc",
-          items = new ItemStack[] {
-            new ItemStack()
-            {
-              id = 256,
-              count = 1
-            }
-          }
-        };
-
-        this.Request_Player_ItemExchange(rewardParam, result =>
-        {
-          log($"itemexchange result count {result.items.Count()}");
-          if (result.items.Count() == 0) return;
-          var tyParam = new IdMsgPrio()
+      var rewardParam = new ItemExchangeInfo()
+      {
+        id = selectedId,
+        buttonText = "ok",
+        title = "test",
+        desc = "testdesc",
+        items = new ItemStack[] {
+          new ItemStack()
           {
-            id = selectedId,
-            msg = $"Thanks for the gift!"
-          };
-          this.Request_InGameMessage_SinglePlayer(tyParam);
+            id = 256,
+            count = 1
+          }
+        }
+      };
 
-        }, x => log($"itemexchange error: {x.errorType.ToString()}"));
-        
-      });
-      
+
+      try
+      {
+        var result = await this.Request_Player_ItemExchange(rewardParam);
+        log($"itemexchange result count {result.items.Count()}");
+        if (result.items.Count() == 0) return;
+        var tyParam = new IdMsgPrio()
+        {
+          id = selectedId,
+          msg = $"Thanks for the gift!"
+        };
+        this.Request_InGameMessage_SinglePlayer(tyParam);
+      } catch(EmpyrionAPIException ex)
+      {
+        log($"itemexchange error: {ex.info.ToString()}");
+      }
     }
 
     private void ExampleMod_Update_Received(ulong tick)
@@ -168,6 +171,7 @@ namespace ExampleMod
         {
           msg = $"game tick is now {tick}, an auspicious number"
         };
+        Action<short> test = (x) => x++;
 
         this.Request_InGameMessage_AllPlayers(param);
       }

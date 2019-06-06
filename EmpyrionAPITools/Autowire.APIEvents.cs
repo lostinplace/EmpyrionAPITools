@@ -17,16 +17,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayfieldLoad> Event_Playfield_Loaded
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Loaded))
-          eventTable[CmdId.Event_Playfield_Loaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Loaded] + value;
-        else
-          eventTable[CmdId.Event_Playfield_Loaded] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Loaded))
+            eventTable[CmdId.Event_Playfield_Loaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Loaded] + value;
+          else
+            eventTable[CmdId.Event_Playfield_Loaded] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Loaded))
-          eventTable[CmdId.Event_Playfield_Loaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Loaded] - value;
-        else
-          eventTable[CmdId.Event_Playfield_Loaded] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Loaded))
+            eventTable[CmdId.Event_Playfield_Loaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Loaded] - value;
+          else
+            eventTable[CmdId.Event_Playfield_Loaded] = value;
+        }
       }
     }
     
@@ -34,16 +38,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayfieldLoad> Event_Playfield_Unloaded
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Unloaded))
-          eventTable[CmdId.Event_Playfield_Unloaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Unloaded] + value;
-        else
-          eventTable[CmdId.Event_Playfield_Unloaded] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Unloaded))
+            eventTable[CmdId.Event_Playfield_Unloaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Unloaded] + value;
+          else
+            eventTable[CmdId.Event_Playfield_Unloaded] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Unloaded))
-          eventTable[CmdId.Event_Playfield_Unloaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Unloaded] - value;
-        else
-          eventTable[CmdId.Event_Playfield_Unloaded] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Unloaded))
+            eventTable[CmdId.Event_Playfield_Unloaded] = (Action<PlayfieldLoad>)eventTable[CmdId.Event_Playfield_Unloaded] - value;
+          else
+            eventTable[CmdId.Event_Playfield_Unloaded] = value;
+        }
       }
     }
     
@@ -51,16 +59,20 @@ namespace EmpyrionAPITools
     public static event Action<Id> Event_Player_Connected
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Connected))
-          eventTable[CmdId.Event_Player_Connected] = (Action<Id>)eventTable[CmdId.Event_Player_Connected] + value;
-        else
-          eventTable[CmdId.Event_Player_Connected] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Connected))
+            eventTable[CmdId.Event_Player_Connected] = (Action<Id>)eventTable[CmdId.Event_Player_Connected] + value;
+          else
+            eventTable[CmdId.Event_Player_Connected] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Connected))
-          eventTable[CmdId.Event_Player_Connected] = (Action<Id>)eventTable[CmdId.Event_Player_Connected] - value;
-        else
-          eventTable[CmdId.Event_Player_Connected] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Connected))
+            eventTable[CmdId.Event_Player_Connected] = (Action<Id>)eventTable[CmdId.Event_Player_Connected] - value;
+          else
+            eventTable[CmdId.Event_Player_Connected] = value;
+        }
       }
     }
     
@@ -68,16 +80,20 @@ namespace EmpyrionAPITools
     public static event Action<Id> Event_Player_Disconnected
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Disconnected))
-          eventTable[CmdId.Event_Player_Disconnected] = (Action<Id>)eventTable[CmdId.Event_Player_Disconnected] + value;
-        else
-          eventTable[CmdId.Event_Player_Disconnected] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Disconnected))
+            eventTable[CmdId.Event_Player_Disconnected] = (Action<Id>)eventTable[CmdId.Event_Player_Disconnected] + value;
+          else
+            eventTable[CmdId.Event_Player_Disconnected] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Disconnected))
-          eventTable[CmdId.Event_Player_Disconnected] = (Action<Id>)eventTable[CmdId.Event_Player_Disconnected] - value;
-        else
-          eventTable[CmdId.Event_Player_Disconnected] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Disconnected))
+            eventTable[CmdId.Event_Player_Disconnected] = (Action<Id>)eventTable[CmdId.Event_Player_Disconnected] - value;
+          else
+            eventTable[CmdId.Event_Player_Disconnected] = value;
+        }
       }
     }
     
@@ -85,16 +101,20 @@ namespace EmpyrionAPITools
     public static event Action<IdPlayfield> Event_Player_ChangedPlayfield
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_ChangedPlayfield))
-          eventTable[CmdId.Event_Player_ChangedPlayfield] = (Action<IdPlayfield>)eventTable[CmdId.Event_Player_ChangedPlayfield] + value;
-        else
-          eventTable[CmdId.Event_Player_ChangedPlayfield] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_ChangedPlayfield))
+            eventTable[CmdId.Event_Player_ChangedPlayfield] = (Action<IdPlayfield>)eventTable[CmdId.Event_Player_ChangedPlayfield] + value;
+          else
+            eventTable[CmdId.Event_Player_ChangedPlayfield] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_ChangedPlayfield))
-          eventTable[CmdId.Event_Player_ChangedPlayfield] = (Action<IdPlayfield>)eventTable[CmdId.Event_Player_ChangedPlayfield] - value;
-        else
-          eventTable[CmdId.Event_Player_ChangedPlayfield] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_ChangedPlayfield))
+            eventTable[CmdId.Event_Player_ChangedPlayfield] = (Action<IdPlayfield>)eventTable[CmdId.Event_Player_ChangedPlayfield] - value;
+          else
+            eventTable[CmdId.Event_Player_ChangedPlayfield] = value;
+        }
       }
     }
     
@@ -102,16 +122,20 @@ namespace EmpyrionAPITools
     public static event Action<Id> Event_Player_DisconnectedWaiting
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_DisconnectedWaiting))
-          eventTable[CmdId.Event_Player_DisconnectedWaiting] = (Action<Id>)eventTable[CmdId.Event_Player_DisconnectedWaiting] + value;
-        else
-          eventTable[CmdId.Event_Player_DisconnectedWaiting] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_DisconnectedWaiting))
+            eventTable[CmdId.Event_Player_DisconnectedWaiting] = (Action<Id>)eventTable[CmdId.Event_Player_DisconnectedWaiting] + value;
+          else
+            eventTable[CmdId.Event_Player_DisconnectedWaiting] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_DisconnectedWaiting))
-          eventTable[CmdId.Event_Player_DisconnectedWaiting] = (Action<Id>)eventTable[CmdId.Event_Player_DisconnectedWaiting] - value;
-        else
-          eventTable[CmdId.Event_Player_DisconnectedWaiting] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_DisconnectedWaiting))
+            eventTable[CmdId.Event_Player_DisconnectedWaiting] = (Action<Id>)eventTable[CmdId.Event_Player_DisconnectedWaiting] - value;
+          else
+            eventTable[CmdId.Event_Player_DisconnectedWaiting] = value;
+        }
       }
     }
     
@@ -119,16 +143,20 @@ namespace EmpyrionAPITools
     public static event Action<FactionChangeInfo> Event_Faction_Changed
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Faction_Changed))
-          eventTable[CmdId.Event_Faction_Changed] = (Action<FactionChangeInfo>)eventTable[CmdId.Event_Faction_Changed] + value;
-        else
-          eventTable[CmdId.Event_Faction_Changed] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Faction_Changed))
+            eventTable[CmdId.Event_Faction_Changed] = (Action<FactionChangeInfo>)eventTable[CmdId.Event_Faction_Changed] + value;
+          else
+            eventTable[CmdId.Event_Faction_Changed] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Faction_Changed))
-          eventTable[CmdId.Event_Faction_Changed] = (Action<FactionChangeInfo>)eventTable[CmdId.Event_Faction_Changed] - value;
-        else
-          eventTable[CmdId.Event_Faction_Changed] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Faction_Changed))
+            eventTable[CmdId.Event_Faction_Changed] = (Action<FactionChangeInfo>)eventTable[CmdId.Event_Faction_Changed] - value;
+          else
+            eventTable[CmdId.Event_Faction_Changed] = value;
+        }
       }
     }
     
@@ -136,16 +164,20 @@ namespace EmpyrionAPITools
     public static event Action<StatisticsParam> Event_Statistics
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Statistics))
-          eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] + value;
-        else
-          eventTable[CmdId.Event_Statistics] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Statistics))
+            eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] + value;
+          else
+            eventTable[CmdId.Event_Statistics] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Statistics))
-          eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] - value;
-        else
-          eventTable[CmdId.Event_Statistics] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Statistics))
+            eventTable[CmdId.Event_Statistics] = (Action<StatisticsParam>)eventTable[CmdId.Event_Statistics] - value;
+          else
+            eventTable[CmdId.Event_Statistics] = value;
+        }
       }
     }
     
@@ -153,16 +185,20 @@ namespace EmpyrionAPITools
     public static event Action<ChatInfo> Event_ChatMessage
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_ChatMessage))
-          eventTable[CmdId.Event_ChatMessage] = (Action<ChatInfo>)eventTable[CmdId.Event_ChatMessage] + value;
-        else
-          eventTable[CmdId.Event_ChatMessage] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ChatMessage))
+            eventTable[CmdId.Event_ChatMessage] = (Action<ChatInfo>)eventTable[CmdId.Event_ChatMessage] + value;
+          else
+            eventTable[CmdId.Event_ChatMessage] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_ChatMessage))
-          eventTable[CmdId.Event_ChatMessage] = (Action<ChatInfo>)eventTable[CmdId.Event_ChatMessage] - value;
-        else
-          eventTable[CmdId.Event_ChatMessage] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ChatMessage))
+            eventTable[CmdId.Event_ChatMessage] = (Action<ChatInfo>)eventTable[CmdId.Event_ChatMessage] - value;
+          else
+            eventTable[CmdId.Event_ChatMessage] = value;
+        }
       }
     }
     
@@ -170,16 +206,20 @@ namespace EmpyrionAPITools
     public static event Action<TraderNPCItemSoldInfo> Event_TraderNPCItemSold
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_TraderNPCItemSold))
-          eventTable[CmdId.Event_TraderNPCItemSold] = (Action<TraderNPCItemSoldInfo>)eventTable[CmdId.Event_TraderNPCItemSold] + value;
-        else
-          eventTable[CmdId.Event_TraderNPCItemSold] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_TraderNPCItemSold))
+            eventTable[CmdId.Event_TraderNPCItemSold] = (Action<TraderNPCItemSoldInfo>)eventTable[CmdId.Event_TraderNPCItemSold] + value;
+          else
+            eventTable[CmdId.Event_TraderNPCItemSold] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_TraderNPCItemSold))
-          eventTable[CmdId.Event_TraderNPCItemSold] = (Action<TraderNPCItemSoldInfo>)eventTable[CmdId.Event_TraderNPCItemSold] - value;
-        else
-          eventTable[CmdId.Event_TraderNPCItemSold] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_TraderNPCItemSold))
+            eventTable[CmdId.Event_TraderNPCItemSold] = (Action<TraderNPCItemSoldInfo>)eventTable[CmdId.Event_TraderNPCItemSold] - value;
+          else
+            eventTable[CmdId.Event_TraderNPCItemSold] = value;
+        }
       }
     }
     
@@ -187,16 +227,20 @@ namespace EmpyrionAPITools
     public static event Action<ConsoleCommandInfo> Event_ConsoleCommand
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_ConsoleCommand))
-          eventTable[CmdId.Event_ConsoleCommand] = (Action<ConsoleCommandInfo>)eventTable[CmdId.Event_ConsoleCommand] + value;
-        else
-          eventTable[CmdId.Event_ConsoleCommand] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ConsoleCommand))
+            eventTable[CmdId.Event_ConsoleCommand] = (Action<ConsoleCommandInfo>)eventTable[CmdId.Event_ConsoleCommand] + value;
+          else
+            eventTable[CmdId.Event_ConsoleCommand] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_ConsoleCommand))
-          eventTable[CmdId.Event_ConsoleCommand] = (Action<ConsoleCommandInfo>)eventTable[CmdId.Event_ConsoleCommand] - value;
-        else
-          eventTable[CmdId.Event_ConsoleCommand] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ConsoleCommand))
+            eventTable[CmdId.Event_ConsoleCommand] = (Action<ConsoleCommandInfo>)eventTable[CmdId.Event_ConsoleCommand] - value;
+          else
+            eventTable[CmdId.Event_ConsoleCommand] = value;
+        }
       }
     }
     
@@ -204,16 +248,20 @@ namespace EmpyrionAPITools
     public static event Action<PdaStateInfo> Event_PdaStateChange
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_PdaStateChange))
-          eventTable[CmdId.Event_PdaStateChange] = (Action<PdaStateInfo>)eventTable[CmdId.Event_PdaStateChange] + value;
-        else
-          eventTable[CmdId.Event_PdaStateChange] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_PdaStateChange))
+            eventTable[CmdId.Event_PdaStateChange] = (Action<PdaStateInfo>)eventTable[CmdId.Event_PdaStateChange] + value;
+          else
+            eventTable[CmdId.Event_PdaStateChange] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_PdaStateChange))
-          eventTable[CmdId.Event_PdaStateChange] = (Action<PdaStateInfo>)eventTable[CmdId.Event_PdaStateChange] - value;
-        else
-          eventTable[CmdId.Event_PdaStateChange] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_PdaStateChange))
+            eventTable[CmdId.Event_PdaStateChange] = (Action<PdaStateInfo>)eventTable[CmdId.Event_PdaStateChange] - value;
+          else
+            eventTable[CmdId.Event_PdaStateChange] = value;
+        }
       }
     }
     
@@ -221,16 +269,20 @@ namespace EmpyrionAPITools
     public static event Action<GameEventData> Event_GameEvent
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_GameEvent))
-          eventTable[CmdId.Event_GameEvent] = (Action<GameEventData>)eventTable[CmdId.Event_GameEvent] + value;
-        else
-          eventTable[CmdId.Event_GameEvent] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_GameEvent))
+            eventTable[CmdId.Event_GameEvent] = (Action<GameEventData>)eventTable[CmdId.Event_GameEvent] + value;
+          else
+            eventTable[CmdId.Event_GameEvent] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_GameEvent))
-          eventTable[CmdId.Event_GameEvent] = (Action<GameEventData>)eventTable[CmdId.Event_GameEvent] - value;
-        else
-          eventTable[CmdId.Event_GameEvent] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_GameEvent))
+            eventTable[CmdId.Event_GameEvent] = (Action<GameEventData>)eventTable[CmdId.Event_GameEvent] - value;
+          else
+            eventTable[CmdId.Event_GameEvent] = value;
+        }
       }
     }
     
@@ -238,16 +290,20 @@ namespace EmpyrionAPITools
     public static event Action<AlliancesTable> Event_AlliancesAll
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_AlliancesAll))
-          eventTable[CmdId.Event_AlliancesAll] = (Action<AlliancesTable>)eventTable[CmdId.Event_AlliancesAll] + value;
-        else
-          eventTable[CmdId.Event_AlliancesAll] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_AlliancesAll))
+            eventTable[CmdId.Event_AlliancesAll] = (Action<AlliancesTable>)eventTable[CmdId.Event_AlliancesAll] + value;
+          else
+            eventTable[CmdId.Event_AlliancesAll] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_AlliancesAll))
-          eventTable[CmdId.Event_AlliancesAll] = (Action<AlliancesTable>)eventTable[CmdId.Event_AlliancesAll] - value;
-        else
-          eventTable[CmdId.Event_AlliancesAll] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_AlliancesAll))
+            eventTable[CmdId.Event_AlliancesAll] = (Action<AlliancesTable>)eventTable[CmdId.Event_AlliancesAll] - value;
+          else
+            eventTable[CmdId.Event_AlliancesAll] = value;
+        }
       }
     }
     
@@ -255,16 +311,20 @@ namespace EmpyrionAPITools
     public static event Action<AlliancesFaction> Event_AlliancesFaction
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_AlliancesFaction))
-          eventTable[CmdId.Event_AlliancesFaction] = (Action<AlliancesFaction>)eventTable[CmdId.Event_AlliancesFaction] + value;
-        else
-          eventTable[CmdId.Event_AlliancesFaction] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_AlliancesFaction))
+            eventTable[CmdId.Event_AlliancesFaction] = (Action<AlliancesFaction>)eventTable[CmdId.Event_AlliancesFaction] + value;
+          else
+            eventTable[CmdId.Event_AlliancesFaction] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_AlliancesFaction))
-          eventTable[CmdId.Event_AlliancesFaction] = (Action<AlliancesFaction>)eventTable[CmdId.Event_AlliancesFaction] - value;
-        else
-          eventTable[CmdId.Event_AlliancesFaction] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_AlliancesFaction))
+            eventTable[CmdId.Event_AlliancesFaction] = (Action<AlliancesFaction>)eventTable[CmdId.Event_AlliancesFaction] - value;
+          else
+            eventTable[CmdId.Event_AlliancesFaction] = value;
+        }
       }
     }
     
@@ -272,16 +332,20 @@ namespace EmpyrionAPITools
     public static event Action<IdList> Event_BannedPlayers
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_BannedPlayers))
-          eventTable[CmdId.Event_BannedPlayers] = (Action<IdList>)eventTable[CmdId.Event_BannedPlayers] + value;
-        else
-          eventTable[CmdId.Event_BannedPlayers] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_BannedPlayers))
+            eventTable[CmdId.Event_BannedPlayers] = (Action<IdList>)eventTable[CmdId.Event_BannedPlayers] + value;
+          else
+            eventTable[CmdId.Event_BannedPlayers] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_BannedPlayers))
-          eventTable[CmdId.Event_BannedPlayers] = (Action<IdList>)eventTable[CmdId.Event_BannedPlayers] - value;
-        else
-          eventTable[CmdId.Event_BannedPlayers] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_BannedPlayers))
+            eventTable[CmdId.Event_BannedPlayers] = (Action<IdList>)eventTable[CmdId.Event_BannedPlayers] - value;
+          else
+            eventTable[CmdId.Event_BannedPlayers] = value;
+        }
       }
     }
     
@@ -289,16 +353,20 @@ namespace EmpyrionAPITools
     public static event Action<DediStats> Event_Dedi_Stats
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Dedi_Stats))
-          eventTable[CmdId.Event_Dedi_Stats] = (Action<DediStats>)eventTable[CmdId.Event_Dedi_Stats] + value;
-        else
-          eventTable[CmdId.Event_Dedi_Stats] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Dedi_Stats))
+            eventTable[CmdId.Event_Dedi_Stats] = (Action<DediStats>)eventTable[CmdId.Event_Dedi_Stats] + value;
+          else
+            eventTable[CmdId.Event_Dedi_Stats] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Dedi_Stats))
-          eventTable[CmdId.Event_Dedi_Stats] = (Action<DediStats>)eventTable[CmdId.Event_Dedi_Stats] - value;
-        else
-          eventTable[CmdId.Event_Dedi_Stats] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Dedi_Stats))
+            eventTable[CmdId.Event_Dedi_Stats] = (Action<DediStats>)eventTable[CmdId.Event_Dedi_Stats] - value;
+          else
+            eventTable[CmdId.Event_Dedi_Stats] = value;
+        }
       }
     }
     
@@ -306,16 +374,20 @@ namespace EmpyrionAPITools
     public static event Action<IdPositionRotation> Event_Entity_PosAndRot
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Entity_PosAndRot))
-          eventTable[CmdId.Event_Entity_PosAndRot] = (Action<IdPositionRotation>)eventTable[CmdId.Event_Entity_PosAndRot] + value;
-        else
-          eventTable[CmdId.Event_Entity_PosAndRot] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Entity_PosAndRot))
+            eventTable[CmdId.Event_Entity_PosAndRot] = (Action<IdPositionRotation>)eventTable[CmdId.Event_Entity_PosAndRot] + value;
+          else
+            eventTable[CmdId.Event_Entity_PosAndRot] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Entity_PosAndRot))
-          eventTable[CmdId.Event_Entity_PosAndRot] = (Action<IdPositionRotation>)eventTable[CmdId.Event_Entity_PosAndRot] - value;
-        else
-          eventTable[CmdId.Event_Entity_PosAndRot] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Entity_PosAndRot))
+            eventTable[CmdId.Event_Entity_PosAndRot] = (Action<IdPositionRotation>)eventTable[CmdId.Event_Entity_PosAndRot] - value;
+          else
+            eventTable[CmdId.Event_Entity_PosAndRot] = value;
+        }
       }
     }
     
@@ -323,16 +395,20 @@ namespace EmpyrionAPITools
     public static event Action<FactionInfoList> Event_Get_Factions
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Get_Factions))
-          eventTable[CmdId.Event_Get_Factions] = (Action<FactionInfoList>)eventTable[CmdId.Event_Get_Factions] + value;
-        else
-          eventTable[CmdId.Event_Get_Factions] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Get_Factions))
+            eventTable[CmdId.Event_Get_Factions] = (Action<FactionInfoList>)eventTable[CmdId.Event_Get_Factions] + value;
+          else
+            eventTable[CmdId.Event_Get_Factions] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Get_Factions))
-          eventTable[CmdId.Event_Get_Factions] = (Action<FactionInfoList>)eventTable[CmdId.Event_Get_Factions] - value;
-        else
-          eventTable[CmdId.Event_Get_Factions] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Get_Factions))
+            eventTable[CmdId.Event_Get_Factions] = (Action<FactionInfoList>)eventTable[CmdId.Event_Get_Factions] - value;
+          else
+            eventTable[CmdId.Event_Get_Factions] = value;
+        }
       }
     }
     
@@ -340,16 +416,20 @@ namespace EmpyrionAPITools
     public static event Action<GlobalStructureList> Event_GlobalStructure_List
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_GlobalStructure_List))
-          eventTable[CmdId.Event_GlobalStructure_List] = (Action<GlobalStructureList>)eventTable[CmdId.Event_GlobalStructure_List] + value;
-        else
-          eventTable[CmdId.Event_GlobalStructure_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_GlobalStructure_List))
+            eventTable[CmdId.Event_GlobalStructure_List] = (Action<GlobalStructureList>)eventTable[CmdId.Event_GlobalStructure_List] + value;
+          else
+            eventTable[CmdId.Event_GlobalStructure_List] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_GlobalStructure_List))
-          eventTable[CmdId.Event_GlobalStructure_List] = (Action<GlobalStructureList>)eventTable[CmdId.Event_GlobalStructure_List] - value;
-        else
-          eventTable[CmdId.Event_GlobalStructure_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_GlobalStructure_List))
+            eventTable[CmdId.Event_GlobalStructure_List] = (Action<GlobalStructureList>)eventTable[CmdId.Event_GlobalStructure_List] - value;
+          else
+            eventTable[CmdId.Event_GlobalStructure_List] = value;
+        }
       }
     }
     
@@ -357,16 +437,20 @@ namespace EmpyrionAPITools
     public static event Action<Id> Event_NewEntityId
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_NewEntityId))
-          eventTable[CmdId.Event_NewEntityId] = (Action<Id>)eventTable[CmdId.Event_NewEntityId] + value;
-        else
-          eventTable[CmdId.Event_NewEntityId] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_NewEntityId))
+            eventTable[CmdId.Event_NewEntityId] = (Action<Id>)eventTable[CmdId.Event_NewEntityId] + value;
+          else
+            eventTable[CmdId.Event_NewEntityId] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_NewEntityId))
-          eventTable[CmdId.Event_NewEntityId] = (Action<Id>)eventTable[CmdId.Event_NewEntityId] - value;
-        else
-          eventTable[CmdId.Event_NewEntityId] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_NewEntityId))
+            eventTable[CmdId.Event_NewEntityId] = (Action<Id>)eventTable[CmdId.Event_NewEntityId] - value;
+          else
+            eventTable[CmdId.Event_NewEntityId] = value;
+        }
       }
     }
     
@@ -374,16 +458,20 @@ namespace EmpyrionAPITools
     public static event Action Event_Ok
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Ok))
-          eventTable[CmdId.Event_Ok] = (Action)eventTable[CmdId.Event_Ok] + value;
-        else
-          eventTable[CmdId.Event_Ok] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Ok))
+            eventTable[CmdId.Event_Ok] = (Action)eventTable[CmdId.Event_Ok] + value;
+          else
+            eventTable[CmdId.Event_Ok] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Ok))
-          eventTable[CmdId.Event_Ok] = (Action)eventTable[CmdId.Event_Ok] - value;
-        else
-          eventTable[CmdId.Event_Ok] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Ok))
+            eventTable[CmdId.Event_Ok] = (Action)eventTable[CmdId.Event_Ok] - value;
+          else
+            eventTable[CmdId.Event_Ok] = value;
+        }
       }
     }
     
@@ -391,16 +479,20 @@ namespace EmpyrionAPITools
     public static event Action<IdCredits> Event_Player_Credits
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Credits))
-          eventTable[CmdId.Event_Player_Credits] = (Action<IdCredits>)eventTable[CmdId.Event_Player_Credits] + value;
-        else
-          eventTable[CmdId.Event_Player_Credits] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Credits))
+            eventTable[CmdId.Event_Player_Credits] = (Action<IdCredits>)eventTable[CmdId.Event_Player_Credits] + value;
+          else
+            eventTable[CmdId.Event_Player_Credits] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Credits))
-          eventTable[CmdId.Event_Player_Credits] = (Action<IdCredits>)eventTable[CmdId.Event_Player_Credits] - value;
-        else
-          eventTable[CmdId.Event_Player_Credits] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Credits))
+            eventTable[CmdId.Event_Player_Credits] = (Action<IdCredits>)eventTable[CmdId.Event_Player_Credits] - value;
+          else
+            eventTable[CmdId.Event_Player_Credits] = value;
+        }
       }
     }
     
@@ -408,16 +500,20 @@ namespace EmpyrionAPITools
     public static event Action<Inventory> Event_Player_GetAndRemoveInventory
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_GetAndRemoveInventory))
-          eventTable[CmdId.Event_Player_GetAndRemoveInventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_GetAndRemoveInventory] + value;
-        else
-          eventTable[CmdId.Event_Player_GetAndRemoveInventory] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_GetAndRemoveInventory))
+            eventTable[CmdId.Event_Player_GetAndRemoveInventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_GetAndRemoveInventory] + value;
+          else
+            eventTable[CmdId.Event_Player_GetAndRemoveInventory] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_GetAndRemoveInventory))
-          eventTable[CmdId.Event_Player_GetAndRemoveInventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_GetAndRemoveInventory] - value;
-        else
-          eventTable[CmdId.Event_Player_GetAndRemoveInventory] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_GetAndRemoveInventory))
+            eventTable[CmdId.Event_Player_GetAndRemoveInventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_GetAndRemoveInventory] - value;
+          else
+            eventTable[CmdId.Event_Player_GetAndRemoveInventory] = value;
+        }
       }
     }
     
@@ -425,16 +521,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayerInfo> Event_Player_Info
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Info))
-          eventTable[CmdId.Event_Player_Info] = (Action<PlayerInfo>)eventTable[CmdId.Event_Player_Info] + value;
-        else
-          eventTable[CmdId.Event_Player_Info] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Info))
+            eventTable[CmdId.Event_Player_Info] = (Action<PlayerInfo>)eventTable[CmdId.Event_Player_Info] + value;
+          else
+            eventTable[CmdId.Event_Player_Info] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Info))
-          eventTable[CmdId.Event_Player_Info] = (Action<PlayerInfo>)eventTable[CmdId.Event_Player_Info] - value;
-        else
-          eventTable[CmdId.Event_Player_Info] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Info))
+            eventTable[CmdId.Event_Player_Info] = (Action<PlayerInfo>)eventTable[CmdId.Event_Player_Info] - value;
+          else
+            eventTable[CmdId.Event_Player_Info] = value;
+        }
       }
     }
     
@@ -442,16 +542,20 @@ namespace EmpyrionAPITools
     public static event Action<Inventory> Event_Player_Inventory
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Inventory))
-          eventTable[CmdId.Event_Player_Inventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_Inventory] + value;
-        else
-          eventTable[CmdId.Event_Player_Inventory] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Inventory))
+            eventTable[CmdId.Event_Player_Inventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_Inventory] + value;
+          else
+            eventTable[CmdId.Event_Player_Inventory] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_Inventory))
-          eventTable[CmdId.Event_Player_Inventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_Inventory] - value;
-        else
-          eventTable[CmdId.Event_Player_Inventory] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_Inventory))
+            eventTable[CmdId.Event_Player_Inventory] = (Action<Inventory>)eventTable[CmdId.Event_Player_Inventory] - value;
+          else
+            eventTable[CmdId.Event_Player_Inventory] = value;
+        }
       }
     }
     
@@ -459,16 +563,20 @@ namespace EmpyrionAPITools
     public static event Action<ItemExchangeInfo> Event_Player_ItemExchange
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_ItemExchange))
-          eventTable[CmdId.Event_Player_ItemExchange] = (Action<ItemExchangeInfo>)eventTable[CmdId.Event_Player_ItemExchange] + value;
-        else
-          eventTable[CmdId.Event_Player_ItemExchange] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_ItemExchange))
+            eventTable[CmdId.Event_Player_ItemExchange] = (Action<ItemExchangeInfo>)eventTable[CmdId.Event_Player_ItemExchange] + value;
+          else
+            eventTable[CmdId.Event_Player_ItemExchange] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_ItemExchange))
-          eventTable[CmdId.Event_Player_ItemExchange] = (Action<ItemExchangeInfo>)eventTable[CmdId.Event_Player_ItemExchange] - value;
-        else
-          eventTable[CmdId.Event_Player_ItemExchange] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_ItemExchange))
+            eventTable[CmdId.Event_Player_ItemExchange] = (Action<ItemExchangeInfo>)eventTable[CmdId.Event_Player_ItemExchange] - value;
+          else
+            eventTable[CmdId.Event_Player_ItemExchange] = value;
+        }
       }
     }
     
@@ -476,16 +584,20 @@ namespace EmpyrionAPITools
     public static event Action<IdList> Event_Player_List
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Player_List))
-          eventTable[CmdId.Event_Player_List] = (Action<IdList>)eventTable[CmdId.Event_Player_List] + value;
-        else
-          eventTable[CmdId.Event_Player_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_List))
+            eventTable[CmdId.Event_Player_List] = (Action<IdList>)eventTable[CmdId.Event_Player_List] + value;
+          else
+            eventTable[CmdId.Event_Player_List] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Player_List))
-          eventTable[CmdId.Event_Player_List] = (Action<IdList>)eventTable[CmdId.Event_Player_List] - value;
-        else
-          eventTable[CmdId.Event_Player_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Player_List))
+            eventTable[CmdId.Event_Player_List] = (Action<IdList>)eventTable[CmdId.Event_Player_List] - value;
+          else
+            eventTable[CmdId.Event_Player_List] = value;
+        }
       }
     }
     
@@ -493,16 +605,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayfieldEntityList> Event_Playfield_Entity_List
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Entity_List))
-          eventTable[CmdId.Event_Playfield_Entity_List] = (Action<PlayfieldEntityList>)eventTable[CmdId.Event_Playfield_Entity_List] + value;
-        else
-          eventTable[CmdId.Event_Playfield_Entity_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Entity_List))
+            eventTable[CmdId.Event_Playfield_Entity_List] = (Action<PlayfieldEntityList>)eventTable[CmdId.Event_Playfield_Entity_List] + value;
+          else
+            eventTable[CmdId.Event_Playfield_Entity_List] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Entity_List))
-          eventTable[CmdId.Event_Playfield_Entity_List] = (Action<PlayfieldEntityList>)eventTable[CmdId.Event_Playfield_Entity_List] - value;
-        else
-          eventTable[CmdId.Event_Playfield_Entity_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Entity_List))
+            eventTable[CmdId.Event_Playfield_Entity_List] = (Action<PlayfieldEntityList>)eventTable[CmdId.Event_Playfield_Entity_List] - value;
+          else
+            eventTable[CmdId.Event_Playfield_Entity_List] = value;
+        }
       }
     }
     
@@ -510,16 +626,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayfieldList> Event_Playfield_List
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_List))
-          eventTable[CmdId.Event_Playfield_List] = (Action<PlayfieldList>)eventTable[CmdId.Event_Playfield_List] + value;
-        else
-          eventTable[CmdId.Event_Playfield_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_List))
+            eventTable[CmdId.Event_Playfield_List] = (Action<PlayfieldList>)eventTable[CmdId.Event_Playfield_List] + value;
+          else
+            eventTable[CmdId.Event_Playfield_List] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_List))
-          eventTable[CmdId.Event_Playfield_List] = (Action<PlayfieldList>)eventTable[CmdId.Event_Playfield_List] - value;
-        else
-          eventTable[CmdId.Event_Playfield_List] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_List))
+            eventTable[CmdId.Event_Playfield_List] = (Action<PlayfieldList>)eventTable[CmdId.Event_Playfield_List] - value;
+          else
+            eventTable[CmdId.Event_Playfield_List] = value;
+        }
       }
     }
     
@@ -527,16 +647,20 @@ namespace EmpyrionAPITools
     public static event Action<PlayfieldStats> Event_Playfield_Stats
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Stats))
-          eventTable[CmdId.Event_Playfield_Stats] = (Action<PlayfieldStats>)eventTable[CmdId.Event_Playfield_Stats] + value;
-        else
-          eventTable[CmdId.Event_Playfield_Stats] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Stats))
+            eventTable[CmdId.Event_Playfield_Stats] = (Action<PlayfieldStats>)eventTable[CmdId.Event_Playfield_Stats] + value;
+          else
+            eventTable[CmdId.Event_Playfield_Stats] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Playfield_Stats))
-          eventTable[CmdId.Event_Playfield_Stats] = (Action<PlayfieldStats>)eventTable[CmdId.Event_Playfield_Stats] - value;
-        else
-          eventTable[CmdId.Event_Playfield_Stats] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Playfield_Stats))
+            eventTable[CmdId.Event_Playfield_Stats] = (Action<PlayfieldStats>)eventTable[CmdId.Event_Playfield_Stats] - value;
+          else
+            eventTable[CmdId.Event_Playfield_Stats] = value;
+        }
       }
     }
     
@@ -544,16 +668,20 @@ namespace EmpyrionAPITools
     public static event Action<IdStructureBlockInfo> Event_Structure_BlockStatistics
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_Structure_BlockStatistics))
-          eventTable[CmdId.Event_Structure_BlockStatistics] = (Action<IdStructureBlockInfo>)eventTable[CmdId.Event_Structure_BlockStatistics] + value;
-        else
-          eventTable[CmdId.Event_Structure_BlockStatistics] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Structure_BlockStatistics))
+            eventTable[CmdId.Event_Structure_BlockStatistics] = (Action<IdStructureBlockInfo>)eventTable[CmdId.Event_Structure_BlockStatistics] + value;
+          else
+            eventTable[CmdId.Event_Structure_BlockStatistics] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_Structure_BlockStatistics))
-          eventTable[CmdId.Event_Structure_BlockStatistics] = (Action<IdStructureBlockInfo>)eventTable[CmdId.Event_Structure_BlockStatistics] - value;
-        else
-          eventTable[CmdId.Event_Structure_BlockStatistics] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_Structure_BlockStatistics))
+            eventTable[CmdId.Event_Structure_BlockStatistics] = (Action<IdStructureBlockInfo>)eventTable[CmdId.Event_Structure_BlockStatistics] - value;
+          else
+            eventTable[CmdId.Event_Structure_BlockStatistics] = value;
+        }
       }
     }
     
@@ -561,16 +689,20 @@ namespace EmpyrionAPITools
     public static event Action<IdAndIntValue> Event_DialogButtonIndex
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
-          eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] + value;
-        else
-          eventTable[CmdId.Event_DialogButtonIndex] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
+            eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] + value;
+          else
+            eventTable[CmdId.Event_DialogButtonIndex] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
-          eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] - value;
-        else
-          eventTable[CmdId.Event_DialogButtonIndex] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_DialogButtonIndex))
+            eventTable[CmdId.Event_DialogButtonIndex] = (Action<IdAndIntValue>)eventTable[CmdId.Event_DialogButtonIndex] - value;
+          else
+            eventTable[CmdId.Event_DialogButtonIndex] = value;
+        }
       }
     }
     
@@ -578,16 +710,20 @@ namespace EmpyrionAPITools
     public static event Action<ChatMsgData> Event_ChatMessageEx
     {
       add {
-        if (eventTable.ContainsKey(CmdId.Event_ChatMessageEx))
-          eventTable[CmdId.Event_ChatMessageEx] = (Action<ChatMsgData>)eventTable[CmdId.Event_ChatMessageEx] + value;
-        else
-          eventTable[CmdId.Event_ChatMessageEx] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ChatMessageEx))
+            eventTable[CmdId.Event_ChatMessageEx] = (Action<ChatMsgData>)eventTable[CmdId.Event_ChatMessageEx] + value;
+          else
+            eventTable[CmdId.Event_ChatMessageEx] = value;
+        }
       }
       remove {
-        if (eventTable.ContainsKey(CmdId.Event_ChatMessageEx))
-          eventTable[CmdId.Event_ChatMessageEx] = (Action<ChatMsgData>)eventTable[CmdId.Event_ChatMessageEx] - value;
-        else
-          eventTable[CmdId.Event_ChatMessageEx] = value;
+        lock (eventTable) { 
+          if (eventTable.ContainsKey(CmdId.Event_ChatMessageEx))
+            eventTable[CmdId.Event_ChatMessageEx] = (Action<ChatMsgData>)eventTable[CmdId.Event_ChatMessageEx] - value;
+          else
+            eventTable[CmdId.Event_ChatMessageEx] = value;
+        }
       }
     }
       
