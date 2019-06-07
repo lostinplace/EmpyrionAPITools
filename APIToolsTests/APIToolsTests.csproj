@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="Mif">
-      <HintPath>..\dependencies\Mif.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\Mif.dll</HintPath>
     </Reference>
     <Reference Include="ModApi">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\ModApi.dll</HintPath>

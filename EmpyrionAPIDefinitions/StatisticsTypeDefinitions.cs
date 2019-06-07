@@ -6,8 +6,6 @@ using Eleon.Modding;
 
 namespace EmpyrionAPIDefinitions
 {
-
-
   public class StatisticsContainer
   {
     public StatisticsParam stats;
@@ -137,10 +135,10 @@ namespace EmpyrionAPIDefinitions
     {
     }
   }
-
-  //  StructOnOff,    // int1: structure id, int2: changing entity id, int3: 0 = off, 1 = on
-
-
+  
+  /// <summary>
+  /// StructOnOff, 
+  /// </summary>
   public class StructurePowerStatistics : StatisticsContainer
   {
     public Id StructureId
@@ -175,8 +173,10 @@ namespace EmpyrionAPIDefinitions
     }
   }
 
-  //  StructDestroyed,// int1: structure id, int2: type (0=wipe, 1=decay
 
+  /// <summary>
+  /// 
+  /// </summary>
   public class StructureDestroyedStatistics : StatisticsContainer
   {
     public Id StructureId
@@ -187,6 +187,9 @@ namespace EmpyrionAPIDefinitions
       }
     }
 
+    /// <summary>
+    /// 0=wipe, 1=decay
+    /// </summary>
     public StructureDestroyType DestroyType
     {
       get
