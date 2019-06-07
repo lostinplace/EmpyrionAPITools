@@ -1,0 +1,18 @@
+# all parameters are optional
+
+Name: Empyrion API Tools Example Mod
+Description: A Mod that demonstrates the functionality of EmpyrionAPITools
+Author: Chris Wheeler
+Version: 0.10.e
+# Website: https://...
+
+
+# =================================================================================================
+# NOTE: Mod is by default DISABLED (see 'ModTargets: None' below) to not disturb normal gameplay.
+#       Developers should copy the "DemoMod" folder to another folder and then, for example,
+#       specify the ModTarget 'Client' to activate for testing and development.
+# =================================================================================================
+
+# Possible targets: None, Dedi, PfServer, Client (the latter three can be combined)
+# Note: If not set 'Dedi' is the default
+ModTargets: Dedi # set to Dedi to enable

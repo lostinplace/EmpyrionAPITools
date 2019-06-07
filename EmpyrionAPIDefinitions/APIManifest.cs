@@ -11,11 +11,22 @@ namespace EmpyrionAPIDefinitions
     public CmdId CmdId { get; set; }
     public Type ParamType { get; set; }
 
-    public APIEvent(CmdId cmdId, Type paramType)
+    public APIFeatureState FeatureState { get; set; } = APIFeatureState.Untested;
+
+    public APIEvent(CmdId cmdId, Type paramType, APIFeatureState featureState = APIFeatureState.Untested)
     {
       this.CmdId = cmdId;
       this.ParamType = paramType;
+      this.FeatureState = featureState;
     }
+  }
+
+  public enum APIFeatureState
+  {
+    Untested,
+    TestedWorking,
+    TestedNotWorking,
+    Deprecated
   }
 
   public class TypeMatchValidator
@@ -104,11 +115,14 @@ namespace EmpyrionAPIDefinitions
     public Type ParamType { get; set; }
     public CmdId ResponseCmdId { get; set; }
 
-    public APIRequest(CmdId cmdId, Type paramType, CmdId responseCmdId)
+    public APIFeatureState FeatureState { get; set; } = APIFeatureState.Untested;
+
+    public APIRequest(CmdId cmdId, Type paramType, CmdId responseCmdId, APIFeatureState featureState = APIFeatureState.Untested)
     {
       CmdId = cmdId;
       ParamType = paramType;
       ResponseCmdId = responseCmdId;
+      FeatureState = featureState;
     }
   }
 
@@ -169,11 +183,11 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_Player_DisconnectedWaiting, typeof(Id)),
       new APIEvent(CmdId.Event_Faction_Changed, typeof(FactionChangeInfo)),
       new APIEvent(CmdId.Event_Statistics, typeof(StatisticsParam)),
-      new APIEvent(CmdId.Event_ChatMessage, typeof(ChatInfo)),
+      new APIEvent(CmdId.Event_ChatMessage, typeof(ChatInfo), APIFeatureState.Deprecated),
       new APIEvent(CmdId.Event_TraderNPCItemSold, typeof(TraderNPCItemSoldInfo)),
       new APIEvent(CmdId.Event_ConsoleCommand, typeof(ConsoleCommandInfo)),
       new APIEvent(CmdId.Event_PdaStateChange, typeof(PdaStateInfo)),
-      new APIEvent(CmdId.Event_GameEvent, typeof(GameEventData)),
+      new APIEvent(CmdId.Event_GameEvent, typeof(GameEventData), APIFeatureState.Deprecated),
       new APIEvent(CmdId.Event_AlliancesAll, typeof(AlliancesTable)),
       new APIEvent(CmdId.Event_AlliancesFaction, typeof(AlliancesFaction)),
       new APIEvent(CmdId.Event_BannedPlayers, typeof(IdList)),
@@ -194,7 +208,7 @@ namespace EmpyrionAPIDefinitions
       new APIEvent(CmdId.Event_Playfield_Stats, typeof(PlayfieldStats)),
       new APIEvent(CmdId.Event_Structure_BlockStatistics, typeof(IdStructureBlockInfo)),
       new APIEvent(CmdId.Event_DialogButtonIndex, typeof(IdAndIntValue)),
-      new APIEvent(CmdId.Event_ChatMessageEx, typeof(ChatMsgData)),
+      new APIEvent(CmdId.Event_ChatMessageEx, typeof(ChatMsgData), APIFeatureState.Deprecated),
     };
 
     public static List<TypeMatchValidator> validators { get; private set; } = new List<EmpyrionAPIDefinitions.TypeMatchValidator>()

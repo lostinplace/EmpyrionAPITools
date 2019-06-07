@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Eleon;
 using Eleon.Modding;
 using EmpyrionAPIDefinitions;
 
@@ -91,8 +92,6 @@ namespace EmpyrionAPITools
     void ModInterface.Game_Event(CmdId eventId, ushort seqNr, object data)
     {
       Broker.HandleGameEvent(eventId, seqNr, data);
-      if (eventId == CmdId.Event_ChatMessageEx) SimpleMod_ProcessChatCommands((ChatMsgData)data);
-
       API_Message_Received?.Invoke(eventId, seqNr, data);
     }
 
@@ -109,7 +108,7 @@ namespace EmpyrionAPITools
       this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
     }
 
-    private async void SimpleMod_ProcessChatCommands(ChatMsgData data)
+    private async void SimpleMod_ProcessChatCommands(MessageData data)
     {
       var match = ChatCommandManager.MatchCommand(data.Text);
       if (match == null) return;
@@ -154,7 +153,9 @@ namespace EmpyrionAPITools
     void IMod.Init(IModApi modAPI)
     {
       this.modAPI = modAPI;
+      modAPI.Application.ChatMessageSent += SimpleMod_ProcessChatCommands;
     }
+
 
     void IMod.Shutdown()
     {

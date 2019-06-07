@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Runtime.CompilerServices;
 using EmpyrionAPIDefinitions;
-using System.Runtime.Caching;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -35,24 +35,24 @@ namespace EmpyrionAPITools
   public static partial class Broker
   {
 
-    public static int cacheTimeInMilliseconds = 5000;
+    public static int cacheTimeInMilliseconds { get; set; } = 5000;
 
-    private static ModGameAPI _api;
-    public static ModGameAPI api {
-      get {
-        return Broker._api;
-      }
-
-      set
-      {
-        _api = value;
-      }
+    public static ModGameAPI api
+    {
+      get;
+      set;
     }
 
     public static bool verbose { get; set; }
     public static LogLevel LogLevel { get; set; }
 
-    private static MemoryCache commandTracker = new MemoryCache("APICommands");
+    private static MemoryCache commandTracker { get; set; }
+  
+
+    static Broker()
+    {
+      commandTracker =  new MemoryCache("APICommands");
+    }
 
     public static GenericAPICommand Execute(GenericAPICommand command)
     {

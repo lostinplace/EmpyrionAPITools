@@ -6,13 +6,14 @@ using System.Text.RegularExpressions;
 using Eleon.Modding;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using Eleon;
 using EmpyrionAPIDefinitions;
 
 namespace EmpyrionAPITools
 {
   public class ChatCommand
   {
-    public delegate void ChatCommandHandler(ChatMsgData info, Dictionary<string, string> arguments = null);
+    public delegate void ChatCommandHandler(MessageData info, Dictionary<string, string> arguments = null);
 
     public readonly string invocationPattern;
     public ChatCommandHandler handler;

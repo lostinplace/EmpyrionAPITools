@@ -13,7 +13,7 @@ namespace EmpyrionAPITools
     private static Dictionary<CmdId, Delegate> eventTable = new Dictionary<CmdId, Delegate>();
     
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayfieldLoad> Event_Playfield_Loaded
     {
       add {
@@ -34,7 +34,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayfieldLoad> Event_Playfield_Unloaded
     {
       add {
@@ -55,7 +55,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Id> Event_Player_Connected
     {
       add {
@@ -76,7 +76,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Id> Event_Player_Disconnected
     {
       add {
@@ -97,7 +97,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdPlayfield> Event_Player_ChangedPlayfield
     {
       add {
@@ -118,7 +118,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Id> Event_Player_DisconnectedWaiting
     {
       add {
@@ -139,7 +139,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<FactionChangeInfo> Event_Faction_Changed
     {
       add {
@@ -160,7 +160,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<StatisticsParam> Event_Statistics
     {
       add {
@@ -181,7 +181,10 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        /// <summary>
+    /// !!!Warning: Event Deprecated!!!
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<ChatInfo> Event_ChatMessage
     {
       add {
@@ -202,7 +205,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<TraderNPCItemSoldInfo> Event_TraderNPCItemSold
     {
       add {
@@ -223,7 +226,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<ConsoleCommandInfo> Event_ConsoleCommand
     {
       add {
@@ -244,7 +247,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PdaStateInfo> Event_PdaStateChange
     {
       add {
@@ -265,7 +268,10 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        /// <summary>
+    /// !!!Warning: Event Deprecated!!!
+    /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<GameEventData> Event_GameEvent
     {
       add {
@@ -286,7 +292,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<AlliancesTable> Event_AlliancesAll
     {
       add {
@@ -307,7 +313,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<AlliancesFaction> Event_AlliancesFaction
     {
       add {
@@ -328,7 +334,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdList> Event_BannedPlayers
     {
       add {
@@ -349,7 +355,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<DediStats> Event_Dedi_Stats
     {
       add {
@@ -370,7 +376,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdPositionRotation> Event_Entity_PosAndRot
     {
       add {
@@ -391,7 +397,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<FactionInfoList> Event_Get_Factions
     {
       add {
@@ -412,7 +418,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<GlobalStructureList> Event_GlobalStructure_List
     {
       add {
@@ -433,7 +439,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Id> Event_NewEntityId
     {
       add {
@@ -454,7 +460,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action Event_Ok
     {
       add {
@@ -475,7 +481,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdCredits> Event_Player_Credits
     {
       add {
@@ -496,7 +502,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Inventory> Event_Player_GetAndRemoveInventory
     {
       add {
@@ -517,7 +523,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayerInfo> Event_Player_Info
     {
       add {
@@ -538,7 +544,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<Inventory> Event_Player_Inventory
     {
       add {
@@ -559,7 +565,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<ItemExchangeInfo> Event_Player_ItemExchange
     {
       add {
@@ -580,7 +586,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdList> Event_Player_List
     {
       add {
@@ -601,7 +607,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayfieldEntityList> Event_Playfield_Entity_List
     {
       add {
@@ -622,7 +628,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayfieldList> Event_Playfield_List
     {
       add {
@@ -643,7 +649,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<PlayfieldStats> Event_Playfield_Stats
     {
       add {
@@ -664,7 +670,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdStructureBlockInfo> Event_Structure_BlockStatistics
     {
       add {
@@ -685,7 +691,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<IdAndIntValue> Event_DialogButtonIndex
     {
       add {
@@ -706,7 +712,7 @@ namespace EmpyrionAPITools
       }
     }
     
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event Action<ChatMsgData> Event_ChatMessageEx
     {
       add {
@@ -731,7 +737,7 @@ namespace EmpyrionAPITools
 
   public abstract partial class SimpleMod {
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayfieldLoad> Event_Playfield_Loaded
     {
       add {
@@ -743,7 +749,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayfieldLoad> Event_Playfield_Unloaded
     {
       add {
@@ -755,7 +761,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Id> Event_Player_Connected
     {
       add {
@@ -767,7 +773,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Id> Event_Player_Disconnected
     {
       add {
@@ -779,7 +785,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdPlayfield> Event_Player_ChangedPlayfield
     {
       add {
@@ -791,7 +797,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Id> Event_Player_DisconnectedWaiting
     {
       add {
@@ -803,7 +809,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<FactionChangeInfo> Event_Faction_Changed
     {
       add {
@@ -815,7 +821,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<StatisticsParam> Event_Statistics
     {
       add {
@@ -827,7 +833,10 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        /// <summary>
+    /// !!!Warning: Event Deprecated!!!
+    /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<ChatInfo> Event_ChatMessage
     {
       add {
@@ -839,7 +848,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<TraderNPCItemSoldInfo> Event_TraderNPCItemSold
     {
       add {
@@ -851,7 +860,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<ConsoleCommandInfo> Event_ConsoleCommand
     {
       add {
@@ -863,7 +872,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PdaStateInfo> Event_PdaStateChange
     {
       add {
@@ -875,7 +884,10 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        /// <summary>
+    /// !!!Warning: Event Deprecated!!!
+    /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<GameEventData> Event_GameEvent
     {
       add {
@@ -887,7 +899,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<AlliancesTable> Event_AlliancesAll
     {
       add {
@@ -899,7 +911,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<AlliancesFaction> Event_AlliancesFaction
     {
       add {
@@ -911,7 +923,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdList> Event_BannedPlayers
     {
       add {
@@ -923,7 +935,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<DediStats> Event_Dedi_Stats
     {
       add {
@@ -935,7 +947,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdPositionRotation> Event_Entity_PosAndRot
     {
       add {
@@ -947,7 +959,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<FactionInfoList> Event_Get_Factions
     {
       add {
@@ -959,7 +971,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<GlobalStructureList> Event_GlobalStructure_List
     {
       add {
@@ -971,7 +983,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Id> Event_NewEntityId
     {
       add {
@@ -983,7 +995,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action Event_Ok
     {
       add {
@@ -995,7 +1007,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdCredits> Event_Player_Credits
     {
       add {
@@ -1007,7 +1019,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Inventory> Event_Player_GetAndRemoveInventory
     {
       add {
@@ -1019,7 +1031,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayerInfo> Event_Player_Info
     {
       add {
@@ -1031,7 +1043,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<Inventory> Event_Player_Inventory
     {
       add {
@@ -1043,7 +1055,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<ItemExchangeInfo> Event_Player_ItemExchange
     {
       add {
@@ -1055,7 +1067,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdList> Event_Player_List
     {
       add {
@@ -1067,7 +1079,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayfieldEntityList> Event_Playfield_Entity_List
     {
       add {
@@ -1079,7 +1091,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayfieldList> Event_Playfield_List
     {
       add {
@@ -1091,7 +1103,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<PlayfieldStats> Event_Playfield_Stats
     {
       add {
@@ -1103,7 +1115,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdStructureBlockInfo> Event_Structure_BlockStatistics
     {
       add {
@@ -1115,7 +1127,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<IdAndIntValue> Event_DialogButtonIndex
     {
       add {
@@ -1127,7 +1139,7 @@ namespace EmpyrionAPITools
     }
 
         
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public event Action<ChatMsgData> Event_ChatMessageEx
     {
       add {

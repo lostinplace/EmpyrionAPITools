@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Eleon;
 using Eleon.Modding;
 using EmpyrionAPITools;
 using EmpyrionAPIDefinitions;
@@ -18,7 +19,8 @@ namespace ExampleMod
     {
 
       this.Update_Received += ExampleMod_Update_Received;
-      this.Event_ChatMessage += ExampleMod_Event_HandleLottoChatMessage;
+      modAPI.Application.ChatMessageSent += ExampleMod_Event_HandleLottoChatMessage;
+      
       this.Event_GameEvent += ExampleMod_Event_GameEvent;
       this.Event_Statistics += PlayerDied_Event_Statistics;
       this.ChatCommands.Add(new ChatCommand(@"::repeat (?<repeat>\S+)", ChatCommand_TestMessage));
@@ -72,7 +74,7 @@ namespace ExampleMod
       }));
     }
 
-    private void ChatCommand_TestMessage(ChatMsgData data, Dictionary<string, string> args)
+    private void ChatCommand_TestMessage(MessageData data, Dictionary<string, string> args)
     {
       var repeating = args["repeat"];
       var msg = new IdMsgPrio()
@@ -87,7 +89,7 @@ namespace ExampleMod
     {
       log("***************event statistics!!!");
       var container = StatisticsContainer.FromStatisticsParam(obj);
-
+      
       switch (container)
       {
         case PlayerDiedStatistics deathStats:
@@ -114,10 +116,10 @@ namespace ExampleMod
       this.Request_InGameMessage_AllPlayers(eventMessage);
     }
 
-    private async void ExampleMod_Event_HandleLottoChatMessage(ChatInfo obj)
+    private async void ExampleMod_Event_HandleLottoChatMessage(MessageData obj)
     {
       log("lotto check");
-      if (obj.msg != "lottery") return;
+      if (obj.Text != "lottery") return;
 
       var list = await this.Request_Player_List();
 
@@ -136,7 +138,8 @@ namespace ExampleMod
         buttonText = "ok",
         title = "test",
         desc = "testdesc",
-        items = new ItemStack[] {
+        items = new ItemStack[]
+        {
           new ItemStack()
           {
             id = 256,
@@ -144,7 +147,6 @@ namespace ExampleMod
           }
         }
       };
-
 
       try
       {

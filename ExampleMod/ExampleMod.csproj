@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\ILMerge.3.0.29\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.29\build\ILMerge.props')" />
-  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +39,10 @@
       <HintPath>..\dependencies\Mif.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ModApi">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\ModApi.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,38 +61,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmpyrionAPIDefinitions\EmpyrionAPIDefinitions.csproj">
-      <Project>{b46dea32-daca-4633-95fd-a20d45a3e77a}</Project>
-      <Name>EmpyrionAPIDefinitions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmpyrionAPITools\EmpyrionAPITools.csproj">
-      <Project>{d1c387ff-fffe-4b64-ad9e-571ba7b87ab8}</Project>
-      <Name>EmpyrionAPITools</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ILMerge.props" />
-    <None Include="packages.config" />
+    <None Include="ExampleMod_Info.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ILMergeOrder.txt" />
+    <ProjectReference Include="..\EmpyrionAPIDefinitions\EmpyrionAPIDefinitions.csproj">
+      <Project>{b46dea32-daca-4633-95fd-a20d45a3e77a}</Project>
+      <Name>EmpyrionAPIDefinitions</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpyrionAPITools\EmpyrionAPITools.csproj">
+      <Project>{d1c387ff-fffe-4b64-ad9e-571ba7b87ab8}</Project>
+      <Name>EmpyrionAPITools</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props'))" />
-    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets'))" />
-    <Error Condition="!Exists('..\packages\ILMerge.3.0.29\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.29\build\ILMerge.props'))" />
-  </Target>
-  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)build\$(ProjectName)
-if $(ConfigurationName) == Debug xcopy $(SolutionDir)build\$(ProjectName) "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\" /E /Y</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug xcopy  $(ProjectDir)\bin\Debug "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\" /E /Y
+if $(ConfigurationName) == Debug copy  $(ProjectDir)\*.yaml "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
