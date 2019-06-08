@@ -65,6 +65,8 @@ namespace EmpyrionAPIDefinitions
     public Type ParamType { get; set; }
     public Type ResponseType { get; set; }
 
+    public APIFeatureState FeatureState { get; set; }
+
     private static string getTypeName(Type aType) => aType == null ? "object" : aType.Name;
 
     public string ResponseTypeName { get => getTypeName(ResponseType); }
@@ -162,9 +164,9 @@ namespace EmpyrionAPIDefinitions
       new APIRequest(CmdId.Request_Load_Playfield, typeof(PlayfieldLoad), CmdId.Event_Ok),
       new APIRequest(CmdId.Request_ConsoleCommand, typeof(PString), CmdId.Event_Ok),
       new APIRequest(CmdId.Request_GetBannedPlayers, null, CmdId.Event_BannedPlayers),
-      new APIRequest(CmdId.Request_InGameMessage_SinglePlayer, typeof(IdMsgPrio), CmdId.Event_Ok),
-      new APIRequest(CmdId.Request_InGameMessage_AllPlayers, typeof(IdMsgPrio), CmdId.Event_Ok),
-      new APIRequest(CmdId.Request_InGameMessage_Faction, typeof(IdMsgPrio), CmdId.Event_Ok),
+      new APIRequest(CmdId.Request_InGameMessage_SinglePlayer, typeof(IdMsgPrio), CmdId.Event_Ok, APIFeatureState.Deprecated),
+      new APIRequest(CmdId.Request_InGameMessage_AllPlayers, typeof(IdMsgPrio), CmdId.Event_Ok, APIFeatureState.Deprecated),
+      new APIRequest(CmdId.Request_InGameMessage_Faction, typeof(IdMsgPrio), CmdId.Event_Ok, APIFeatureState.Deprecated),
       new APIRequest(CmdId.Request_ShowDialog_SinglePlayer, typeof(DialogBoxData), CmdId.Event_DialogButtonIndex),
       new APIRequest(CmdId.Request_Player_GetAndRemoveInventory, typeof(Id), CmdId.Event_Player_GetAndRemoveInventory),
       new APIRequest(CmdId.Request_Playfield_Entity_List, typeof(PString), CmdId.Event_Playfield_Entity_List),
@@ -250,7 +252,8 @@ namespace EmpyrionAPIDefinitions
       {
         Name = request.CmdId.ToString(),
         ParamType = request.ParamType,
-        ResponseType = response.ParamType
+        ResponseType = response.ParamType,
+        FeatureState = request.FeatureState
       };
     }).ToList();
 

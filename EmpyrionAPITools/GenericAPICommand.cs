@@ -33,7 +33,7 @@ namespace EmpyrionAPITools
 
     private void defaultResponseHandler(CmdId evt, object data)
     {
-      Broker.log(() => $"unhandled response to {evt} event with {data}");
+      Logger.log(() => $"unhandled response to {evt} event with {data}");
     }
 
     private void defaultErrorHandler(ErrorInfo err)
@@ -96,7 +96,7 @@ namespace EmpyrionAPITools
       }
       catch (Exception ex)
       {
-        Broker.log(() => $"error attempting to validate message\n{ex.ToString()}", LogLevel.Error);
+        Logger.log(() => $"error attempting to validate message\n{ex.ToString()}", LogLevel.Error);
         return false;
       }
     }

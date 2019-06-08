@@ -70,6 +70,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GenericAPICommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MemoryCache.cs" />
     <Compile Include="SimpleMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

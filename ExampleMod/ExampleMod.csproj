@@ -49,6 +49,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleMod.cs" />
@@ -83,7 +87,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug xcopy  $(ProjectDir)\bin\Debug "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\" /E /Y
-if $(ConfigurationName) == Debug copy  $(ProjectDir)\*.yaml "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\"</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug copy  $(ProjectDir)*.yaml $(ProjectDir)\bin\Debug
+if $(ConfigurationName) == Debug xcopy  $(ProjectDir)\bin\Debug "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\" /E /Y
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

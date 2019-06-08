@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 using Eleon;
 using Eleon.Modding;
 using EmpyrionAPIDefinitions;
+using MsgChannel = Eleon.Modding.MsgChannel;
+using SenderType = Eleon.Modding.SenderType;
 
 namespace EmpyrionAPITools
 {
@@ -13,23 +15,6 @@ namespace EmpyrionAPITools
   {
 
     protected List<ChatCommand> ChatCommands { get; set; } = new List<ChatCommand>();
-
-    protected bool verbose
-    {
-      set
-      {
-        Broker.verbose = value;
-      }
-      get
-      {
-        return Broker.verbose;
-      }
-    }
-
-    protected LogLevel LogLevel {
-      get { return Broker.LogLevel; }
-      set { Broker.LogLevel = value; }
-    }
 
     private ChatCommandManager ChatCommandManager;
 
@@ -54,38 +39,36 @@ namespace EmpyrionAPITools
       return this.ChatCommands.Where(x => x.minimumPermissionLevel <= permission).ToList();
     }
 
-    public abstract void Initialize(ModGameAPI dediAPI);
+    public abstract void Initialize(IModApi api, ModGameAPI legacyApi );
 
-    /// <summary>
-    /// Simple way to send an alert to the specified player
-    /// </summary>
-    /// <param name="playerId">id of player to inform</param>
-    /// <param name="message">message</param>
-    protected void AlertPlayer(int playerId, string message)
-    {
-      MessagePlayer(playerId, message, MessagePriorityType.Alarm);
-    }
-
-    /// <summary>
-    /// Simple way to send info to the specified player
-    /// </summary>
-    /// <param name="playerId"></param>
-    /// <param name="message"></param>
-    protected void InformPlayer(int playerId, string message)
-    {
-      MessagePlayer(playerId, message, MessagePriorityType.Info);
-    }
-
+   
     /// <summary>
     /// Simple way to send a message to the specified player
     /// </summary>
     /// <param name="playerId"></param>
     /// <param name="message"></param>
-    /// <param name="priority"></param>
-    protected void MessagePlayer(int playerId, string message, MessagePriorityType priority = MessagePriorityType.Message)
+    protected void MessagePlayer(int playerId, string message)
     {
-      var msg = message.ToIdMsgPrio(playerId, priority);
-      this.Request_InGameMessage_SinglePlayer(msg);
+
+      MessageData chatMsgData = new MessageData();
+      chatMsgData.Channel = Eleon.MsgChannel.SinglePlayer;
+      chatMsgData.Text = message;
+      chatMsgData.RecipientEntityId = playerId;
+      chatMsgData.SenderNameOverride = "Server";
+      chatMsgData.SenderType = Eleon.SenderType.System;
+
+      this.GameAPI.Application.SendChatMessage(chatMsgData);
+    }
+
+    protected void MessageAllPlayers(string message)
+    {
+      MessageData chatMsgData = new MessageData();
+      chatMsgData.Channel = Eleon.MsgChannel.Global;
+      chatMsgData.Text = message;
+      chatMsgData.SenderNameOverride = "Server";
+      chatMsgData.SenderType = Eleon.SenderType.System;
+
+      this.GameAPI.Application.SendChatMessage(chatMsgData);
     }
 
 
@@ -102,10 +85,21 @@ namespace EmpyrionAPITools
 
     void ModInterface.Game_Start(ModGameAPI dediAPI)
     {
-      Broker.api = dediAPI;
-      this.Initialize(dediAPI);     
+      this.LegacyInitialized = true;
+      if(dediAPI == null) return;
+      this.LegacyAPI = dediAPI;
+      Broker.api = this.LegacyAPI;
       
-      this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
+      
+      RunInitialize();
+    }
+
+    private bool LegacyInitialized { get; set; } = false;
+    private bool APIInitialized { get; set; } = false;
+
+    private void RunInitialize()
+    {
+      if(LegacyInitialized && APIInitialized) this.Initialize(GameAPI, LegacyAPI);
     }
 
     private async void SimpleMod_ProcessChatCommands(MessageData data)
@@ -114,7 +108,7 @@ namespace EmpyrionAPITools
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
       {
-        var player = await Request_Player_Info(data.SenderEntityId.ToId());
+        var player = await Broker.Request_Player_Info(data.SenderEntityId.ToId());
         if(player.permission < (int)match.command.minimumPermissionLevel) return;
         match.command.handler(data, match.parameters);
      
@@ -125,41 +119,27 @@ namespace EmpyrionAPITools
 
     void ModInterface.Game_Update()
     {
-      Update_Received?.Invoke(Broker.api.Game_GetTickTime());
+      Update_Received?.Invoke(GameAPI.Application.GameTicks);
     }
 
-    public void log(string msg)
-    {
-      Broker.log(msg);
-    }
-
-    public void log(string msg, LogLevel aLevel)
-    {
-      Broker.log(msg, aLevel);
-    }
-
-    public void log(Func<string> msg)
-    {
-      Broker.log(msg);
-    }
-
-    public void log(Func<string> msg, LogLevel aLevel)
-    {
-      Broker.log(msg, aLevel);
-    }
-
-    protected IModApi modAPI { get; set; }
+    protected IModApi GameAPI { get; set; }
+    protected ModGameAPI LegacyAPI { get; set; }
 
     void IMod.Init(IModApi modAPI)
     {
-      this.modAPI = modAPI;
+      this.APIInitialized = true;
+      this.GameAPI = modAPI;
+
+      Logger.logFunction = modAPI.Log;
+      this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
       modAPI.Application.ChatMessageSent += SimpleMod_ProcessChatCommands;
+      RunInitialize();
     }
 
 
     void IMod.Shutdown()
     {
-      log("shutting down");
+      Logger.log("shutting down");
     }
   }
 }

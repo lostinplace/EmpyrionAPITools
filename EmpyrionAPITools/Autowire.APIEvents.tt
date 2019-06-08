@@ -1,6 +1,6 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)dependencies\Mif.dll"  #>
+<#@ assembly name="C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Dedicated Server\DedicatedServer\EmpyrionDedicated_Data\Managed\Mif.dll"  #>
 <#@ assembly name="$(SolutionDir)EmpyrionAPIDefinitions\bin\$(Configuration)\EmpyrionAPIDefinitions.dll" #>
 <#@ import namespace="EmpyrionAPIDefinitions" #>
 <#@ import namespace="System.Linq" #>
@@ -26,10 +26,7 @@ namespace EmpyrionAPITools
     #>
 
     <# if(item.FeatureState == APIFeatureState.Deprecated) { #>
-    /// <summary>
-    /// !!!Warning: Event Deprecated!!!
-    /// </summary>
-    <#}#>
+    [ObsoleteAttribute("This event has been deprecated, look to the new GameAPI for its functionality")] <#}#>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
     public static event <#=handlerType#> <#=item.CmdId#>
     {
@@ -52,29 +49,5 @@ namespace EmpyrionAPITools
     }
     <#  }#>
   
-  }
-
-  public abstract partial class SimpleMod {
-    <#  foreach(var item in APIManifest.EventManifest){
-      var handlerType = item.ParamType == null ? "Action" : $"Action<{item.ParamType.Name}>";
-    #>
-    
-    <# if(item.FeatureState == APIFeatureState.Deprecated) { #>
-    /// <summary>
-    /// !!!Warning: Event Deprecated!!!
-    /// </summary>
-    <#}#>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
-    public event <#=handlerType#> <#=item.CmdId#>
-    {
-      add {
-        Broker.<#=item.CmdId#> += value;
-      }
-      remove {
-        Broker.<#=item.CmdId#> -= value;
-      }
-    }
-
-    <#  }#>
   }
 }

@@ -37,14 +37,7 @@ namespace EmpyrionAPITools
 
     public static int cacheTimeInMilliseconds { get; set; } = 5000;
 
-    public static ModGameAPI api
-    {
-      get;
-      set;
-    }
-
-    public static bool verbose { get; set; }
-    public static LogLevel LogLevel { get; set; }
+    public static ModGameAPI api { get; set; } = null;
 
     private static MemoryCache commandTracker { get; set; }
   
@@ -54,11 +47,22 @@ namespace EmpyrionAPITools
       commandTracker =  new MemoryCache("APICommands");
     }
 
+    private static bool CheckAndWarnIfBrokerNotLoaded()
+    {
+      if (api == null)
+      {
+        Logger.log("Legacy API is not loaded, so Broker is disabled", LogLevel.Warn);
+        return false;
+      }
+      else return true;
+    }
+
     public static GenericAPICommand Execute(GenericAPICommand command)
     {
+      CheckAndWarnIfBrokerNotLoaded();
       var seqNrString = command.SequenceNumber.ToString();
 
-      log(() => $"adding: {command.responseHandler}");
+      Logger.log(() => $"adding: {command.responseHandler}");
       lock (commandTracker)
       {
         command.assignSequenceNumber();
@@ -154,7 +158,7 @@ namespace EmpyrionAPITools
     public static void HandleGameEvent(CmdId eventId, ushort seqNr, object data)
     {            
       var apiEvent = new apiEvent(eventId, seqNr, data);
-      log(() => $"receiving event {eventId.ToString()}:{seqNr}");
+      Logger.log(() => $"receiving event {eventId.ToString()}:{seqNr}");
 
       Delegate handler;
       
@@ -181,27 +185,6 @@ namespace EmpyrionAPITools
       else outstandingCommand.responseHandler(eventId, data);
     }
 
-    public static void log(string message)
-    {
-      log(message, LogLevel.Debug);
-    }
-
-    public static void log(string message, LogLevel aLevel)
-    {
-      if(verbose && LogLevel <= aLevel)
-        api.Console_Write(message);
-    }
-
-    public static void log(System.Func<string> message)
-    {
-      log(message, LogLevel.Debug);
-    }
-
-    public static void log(System.Func<string> message, LogLevel aLevel)
-    {
-      if(verbose && LogLevel <= aLevel)
-        api.Console_Write(message());
-    }
     public static void noOpErrorHandler(ErrorInfo info) {
       throw new EmpyrionAPIException("Error returned by API", info);
     }
