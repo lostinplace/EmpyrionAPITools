@@ -36,7 +36,9 @@ namespace EmpyrionAPIDefinitions
     Asteroid = 21,
     Civilian = 22,
     Cyborg = 23,
-    TroopTransport = 24
+    TroopTransport = 24,
+    MissionContainer = 25,
+    Proxy = 26, //Enemy NPC
   }
 
   /// <summary>

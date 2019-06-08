@@ -55,7 +55,7 @@ namespace ExampleMod
 
       }, "blows it up", PermissionType.Moderator));
       
-      var t = new System.Timers.Timer(1000);
+      var t = new System.Timers.Timer(15000);
       
       t.Elapsed += T_Elapsed;
       
@@ -95,32 +95,20 @@ namespace ExampleMod
 
     private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
+      if(this.GameAPI.Playfield == null) return;
       Logger.log("evaluating");
       var player = this.GameAPI.Playfield.Players.Values.FirstOrDefault(x => true);
       if(player == null) return;
 
-      
-      if (entityId == 0)
+      Logger.log("writing types");
+
+      this.GameAPI.Playfield.Entities.Values.GroupBy(x=>x.Type.ToString()).Select(x=>new
       {
-        var ent = this.GameAPI.Playfield.Entities.Values.FirstOrDefault(x => x.Type == EntityType.Proxy);
-        if (ent == null)
-        {
-          Logger.log("couldn't find proxy");
-          return;
-        }
-        entityId = ent.Id;
-      }
-      else
-      {
-        var ent = this.GameAPI.Playfield.Entities[entityId];
-        var distance = ent.Position - player.Position;
-        var msg = new MessageData()
-        {
-          Channel = MsgChannel.Global,
-          Text = $"proxy distance {distance.sqrMagnitude}"
-        };
-        this.GameAPI.Application.SendChatMessage(msg);
-      }
+        group = x.Key,
+        count = x.Count(),
+        pos = x.OrderBy(y=>(player.Position - y.Position ).magnitude).First().Position
+      }).ToList().ForEach(x=>MessageAllPlayers($"{x.group}: {x.count}, pos: {x.pos.x}, {x.pos.y}, {x.pos.z}"));
+
       Logger.log("stopping output");
     }
 
