@@ -1,6 +1,8 @@
-﻿# EmpyrionAPITools
+# EmpyrionAPITools
 
 ## FAQ
+
+> NOTE: I need to revise these docs, I haven't checked them for veracity in a but, and I'm in the middle of rework of the system.  Stay tuned for details
 
 ### What is this?
 
@@ -118,7 +120,7 @@ this.Request_Player_Info(new Id(-230), (info) =>
 
 In principle, using the framework is very simple, and it has 4 steps:
 
-1. Create a new .NET 3.5 Class Library
+1. Create a new .NET 4.7 Class Library
 2. Add references to dlls
 3. Implement a class that inherits from `SimpleMod`
 4. Bundle using ILMerge
