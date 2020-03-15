@@ -60,15 +60,17 @@ namespace EmpyrionAPITools
     public static GenericAPICommand Execute(GenericAPICommand command)
     {
       CheckAndWarnIfBrokerNotLoaded();
-      var seqNrString = command.SequenceNumber.ToString();
 
       Logger.log(() => $"adding: {command.responseHandler}");
       lock (commandTracker)
       {
         command.assignSequenceNumber();
-        commandTracker.Add(seqNrString, command, DateTime.Now.AddMilliseconds(cacheTimeInMilliseconds));
+        Logger.log($@"assigned sequence number: {command.SequenceNumber}");
+        commandTracker.Add(command.SequenceNumber.ToString(), command, DateTime.Now.AddMilliseconds(cacheTimeInMilliseconds));
       }
-
+      var keys = String.Join(",", commandTracker.Keys);
+      
+      Logger.log($@"commandtracker keys: {keys}");
       api.Game_Request(command.call.CmdId, command.SequenceNumber, command.argument);
       return command;
     }
@@ -162,27 +164,33 @@ namespace EmpyrionAPITools
 
       Delegate handler;
       
+      Logger.log(() => $"receiving event 1 {eventId.ToString()}:{seqNr}");
       if (eventTable.TryGetValue(eventId, out handler))
         handler.DynamicInvoke(new object[] { data });
 
       var seqNrString = seqNr.ToString();
-
+      Logger.log(() => $"receiving event 2 {eventId.ToString()}:{seqNr}");
       if (!commandTracker.Contains(seqNrString)) return;
+      var keys = String.Join(",", commandTracker.Keys);
+      Logger.log(() => $"receiving event 2 {eventId.ToString()}:{seqNr} -- keys: {keys}");
 
       GenericAPICommand outstandingCommand = default(GenericAPICommand);
-
+      Logger.log(() => $"receiving event 3 {eventId.ToString()}:{seqNr}");
       lock (commandTracker)
       {
         outstandingCommand = (GenericAPICommand)commandTracker.Get(seqNrString);
-
+        Logger.log(() => $"receiving event 4 {eventId.ToString()}:{seqNr}");
         if (eventId == CmdId.Event_Error || outstandingCommand.validateResponse(eventId, seqNr, data))
           commandTracker.Remove(seqNrString);
         else return;
+        Logger.log(() => $"receiving event 5 {eventId.ToString()}:{seqNr}");
       }
-
+      Logger.log(() => $"receiving event 6 {eventId.ToString()}:{seqNr}");
       if (eventId == CmdId.Event_Error && outstandingCommand.errorHandler != null)
         outstandingCommand.errorHandler((ErrorInfo)data);
       else outstandingCommand.responseHandler(eventId, data);
+
+      Logger.log(() => $"receiving event 7 {eventId.ToString()}:{seqNr}");
     }
 
     public static void noOpErrorHandler(ErrorInfo info) {

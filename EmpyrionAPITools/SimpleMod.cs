@@ -54,7 +54,6 @@ namespace EmpyrionAPITools
       chatMsgData.Channel = Eleon.MsgChannel.SinglePlayer;
       chatMsgData.Text = message;
       chatMsgData.RecipientEntityId = playerId;
-      chatMsgData.SenderNameOverride = "Server";
       chatMsgData.SenderType = Eleon.SenderType.System;
 
       this.GameAPI.Application.SendChatMessage(chatMsgData);
@@ -104,7 +103,9 @@ namespace EmpyrionAPITools
 
     private async void SimpleMod_ProcessChatCommands(MessageData data)
     {
+      Logger.log($@"pattern: {this.ChatCommandManager.superPattern.pattern.ToString()}");
       var match = ChatCommandManager.MatchCommand(data.Text);
+      Logger.log($@"matching: {data.Text}");
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
       {
@@ -131,9 +132,11 @@ namespace EmpyrionAPITools
       this.GameAPI = modAPI;
 
       Logger.logFunction = modAPI.Log;
+      
+      RunInitialize();
+
       this.ChatCommandManager = new ChatCommandManager(this.ChatCommands);
       modAPI.Application.ChatMessageSent += SimpleMod_ProcessChatCommands;
-      RunInitialize();
     }
 
 

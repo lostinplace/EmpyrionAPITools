@@ -15,4 +15,4 @@ Version: 0.10.e
 
 # Possible targets: None, Dedi, PfServer, Client (the latter three can be combined)
 # Note: If not set 'Dedi' is the default
-ModTargets: PfServer # set to Dedi to enable
+ModTargets: PfServer, Dedi, Client # set to Dedi to enable

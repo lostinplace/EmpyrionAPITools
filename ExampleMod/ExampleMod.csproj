@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +86,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug copy  $(ProjectDir)*.yaml $(ProjectDir)\bin\Debug
-if $(ConfigurationName) == Debug xcopy  $(ProjectDir)\bin\Debug "C:\Program Files (x86)\Steam\SteamApps\common\Empyrion - Dedicated Server\Content\Mods\$(ProjectName)\" /E /Y
-</PostBuildEvent>
+    <PostBuildEvent>copy  $(ProjectDir)*.yaml $(TargetDir)
+if $(ConfigurationName) == Debug $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe $(SolutionDir)\BuildAssistant\BuildAssistant.py --modName $(ProjectName) --bundleAndDeployMod $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if $(ConfigurationName) == Debug $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe $(SolutionDir)\BuildAssistant\BuildAssistant.py --copyDllsToFolder=$(SolutionDir)\EmpyrionDlls</PreBuildEvent>
   </PropertyGroup>
 </Project>

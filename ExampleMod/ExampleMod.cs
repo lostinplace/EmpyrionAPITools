@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading;
 using Eleon;
 using Eleon.Modding;
 using EmpyrionAPITools;
 using EmpyrionAPIDefinitions;
 using MsgChannel = Eleon.MsgChannel;
+using SenderType = Eleon.SenderType;
 
 namespace ExampleMod
 {
@@ -15,7 +17,7 @@ namespace ExampleMod
   {
     private Random RNG { get; } = new Random();
 
-
+    
     public override void Initialize(IModApi modAPI, ModGameAPI legacyAPI)
     {
       Logger.logLevel = LogLevel.Debug;
@@ -27,20 +29,24 @@ namespace ExampleMod
 
       modAPI.GameEvent += ModAPI_GameEvent;
       Broker.Event_Statistics += PlayerDied_Event_Statistics;
-      this.ChatCommands.Add(new ChatCommand(@"::repeat (?<repeat>\S+)", ChatCommand_TestMessage));
+
+      this.ChatCommands.Add(new ChatCommand(@"!repeat (?<repeat>\S+)", ChatCommand_TestMessage));
       this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", (data, args) => {
+
+        Logger.log("loudly!!!");
        
         var msg = new MessageData()
         {
           Channel = MsgChannel.Global,
           Text = $"{args["yellthis"].ToUpper()}!!!!!",
-          SenderEntityId = data.SenderEntityId
+          SenderType = SenderType.System
+          
 
         };
         this.GameAPI.Application.SendChatMessage(msg);
       }));
 
-      this.ChatCommands.Add(new ChatCommand(@"::explosion", async (data, __) => {
+      this.ChatCommands.Add(new ChatCommand(@"!explosion", async (data, __) => {
         var dialogData = new DialogBoxData()
         {
           Id = data.SenderEntityId,
@@ -58,10 +64,11 @@ namespace ExampleMod
       var t = new System.Timers.Timer(15000);
       
       t.Elapsed += T_Elapsed;
+      Debugger.Break();
       
       t.Start();
 
-      this.ChatCommands.Add(new ChatCommand(@"::help", async (data, __) =>
+      this.ChatCommands.Add(new ChatCommand(@"!help", async (data, __) =>
       {
         var info = await Broker.Request_Player_Info(data.SenderEntityId.ToId());
 
@@ -83,6 +90,8 @@ namespace ExampleMod
         Broker.Request_ShowDialog_SinglePlayer(dialogData);
 
       }));
+
+      Logger.log("example mod init complete");
     }
 
     private void ModAPI_GameEvent(GameEventType type, object arg1 = null, object arg2 = null, object arg3 = null, object arg4 = null, object arg5 = null)
@@ -95,14 +104,14 @@ namespace ExampleMod
 
     private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
-      if(this.GameAPI.Playfield == null) return;
+      if(this.GameAPI.ClientPlayfield == null) return;
       Logger.log("evaluating");
-      var player = this.GameAPI.Playfield.Players.Values.FirstOrDefault(x => true);
+      var player = this.GameAPI.ClientPlayfield.Players.Values.FirstOrDefault(x => true);
       if(player == null) return;
 
       Logger.log("writing types");
 
-      this.GameAPI.Playfield.Entities.Values.GroupBy(x=>x.Type.ToString()).Select(x=>new
+      this.GameAPI.ClientPlayfield.Entities.Values.GroupBy(x=>x.Type.ToString()).Select(x=>new
       {
         group = x.Key,
         count = x.Count(),
@@ -150,6 +159,8 @@ namespace ExampleMod
       if (obj.Text != "lottery") return;
 
       var list = await Broker.Request_Player_List();
+
+      Logger.log(@"received list: {list.list.Count}");
 
       var index = RNG.Next() % list.list.Count;
       var selectedId = list.list[index];

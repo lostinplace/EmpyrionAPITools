@@ -36,12 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mif">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\Mif.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\EmpyrionDlls\Mif.dll</HintPath>
     </Reference>
     <Reference Include="ModApi">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Empyrion - Galactic Survival\DedicatedServer\EmpyrionDedicated_Data\Managed\ModApi.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\EmpyrionDlls\ModApi.dll</HintPath>
     </Reference>
     <Reference Include="RingResourceManager, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RingResourceManager.0.0.3\lib\net472\RingResourceManager.dll</HintPath>
