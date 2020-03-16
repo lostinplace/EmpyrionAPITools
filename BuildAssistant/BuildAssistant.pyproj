@@ -13,6 +13,9 @@
     <RootNamespace>BuildAssistant</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>MSBuild|DebugEnv|$(MSBuildProjectFullPath)</InterpreterId>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>-watchLogs -launchServer</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,12 +34,12 @@
   <ItemGroup>
     <Interpreter Include="DebugEnv\">
       <Id>DebugEnv</Id>
-      <Version>3.7</Version>
-      <Description>DebugEnv (Python 3.7 (64-bit))</Description>
+      <Version>3.8</Version>
+      <Description>DebugEnv (Python 3.8 (32-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X64</Architecture>
+      <Architecture>X86</Architecture>
     </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

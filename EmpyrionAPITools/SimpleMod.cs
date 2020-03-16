@@ -103,9 +103,7 @@ namespace EmpyrionAPITools
 
     private async void SimpleMod_ProcessChatCommands(MessageData data)
     {
-      Logger.log($@"pattern: {this.ChatCommandManager.superPattern.pattern.ToString()}");
       var match = ChatCommandManager.MatchCommand(data.Text);
-      Logger.log($@"matching: {data.Text}");
       if (match == null) return;
       if (match.command.minimumPermissionLevel > EmpyrionAPIDefinitions.PermissionType.Player)
       {

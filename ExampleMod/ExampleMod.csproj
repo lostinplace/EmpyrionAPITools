@@ -87,9 +87,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy  $(ProjectDir)*.yaml $(TargetDir)
-if $(ConfigurationName) == Debug $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe $(SolutionDir)\BuildAssistant\BuildAssistant.py --modName $(ProjectName) --bundleAndDeployMod $(TargetDir)</PostBuildEvent>
+
+if $(ConfigurationName) == Debug (
+  $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe -m empyrionbuildassistant --modName $(ProjectName) --bundleAndDeployMod $(TargetDir) -clearLogs  
+)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if $(ConfigurationName) == Debug $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe $(SolutionDir)\BuildAssistant\BuildAssistant.py --copyDllsToFolder=$(SolutionDir)\EmpyrionDlls</PreBuildEvent>
+    <PreBuildEvent>if $(ConfigurationName) == Debug $(SolutionDir)\BuildAssistant\DebugEnv\Scripts\python.exe -m empyrionbuildassistant --copyDllsToFolder=$(SolutionDir)\EmpyrionDlls</PreBuildEvent>
   </PropertyGroup>
 </Project>

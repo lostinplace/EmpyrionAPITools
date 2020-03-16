@@ -24,7 +24,7 @@ namespace ExampleMod
 
       this.Update_Received += ExampleMod_Update_Received;
       modAPI.Application.ChatMessageSent += ExampleMod_Event_HandleLottoChatMessage;
-      
+
       Broker.Event_GameEvent += ExampleMod_Event_GameEvent;
 
       modAPI.GameEvent += ModAPI_GameEvent;
@@ -33,8 +33,6 @@ namespace ExampleMod
       this.ChatCommands.Add(new ChatCommand(@"!repeat (?<repeat>\S+)", ChatCommand_TestMessage));
       this.ChatCommands.Add(new ChatCommand(@"!loudly (?<yellthis>.+)", (data, args) => {
 
-        Logger.log("loudly!!!");
-       
         var msg = new MessageData()
         {
           Channel = MsgChannel.Global,
@@ -105,11 +103,8 @@ namespace ExampleMod
     private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
       if(this.GameAPI.ClientPlayfield == null) return;
-      Logger.log("evaluating");
       var player = this.GameAPI.ClientPlayfield.Players.Values.FirstOrDefault(x => true);
       if(player == null) return;
-
-      Logger.log("writing types");
 
       this.GameAPI.ClientPlayfield.Entities.Values.GroupBy(x=>x.Type.ToString()).Select(x=>new
       {
@@ -117,8 +112,6 @@ namespace ExampleMod
         count = x.Count(),
         pos = x.OrderBy(y=>(player.Position - y.Position ).magnitude).First().Position
       }).ToList().ForEach(x=>MessageAllPlayers($"{x.group}: {x.count}, pos: {x.pos.x}, {x.pos.y}, {x.pos.z}"));
-
-      Logger.log("stopping output");
     }
 
     private void ChatCommand_TestMessage(MessageData data, Dictionary<string, string> args)
@@ -159,9 +152,6 @@ namespace ExampleMod
       if (obj.Text != "lottery") return;
 
       var list = await Broker.Request_Player_List();
-
-      Logger.log(@"received list: {list.list.Count}");
-
       var index = RNG.Next() % list.list.Count;
       var selectedId = list.list[index];
 
@@ -190,7 +180,6 @@ namespace ExampleMod
       try
       {
         var result = await Broker.Request_Player_ItemExchange(rewardParam);
-        Logger.log($"itemexchange result count {result.items.Count()}");
         if (result.items.Any()) return;
 
         MessagePlayer(selectedId, $"Thanks for the gift!");
