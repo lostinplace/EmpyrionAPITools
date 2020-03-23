@@ -25,7 +25,7 @@ namespace ExampleMod
       this.Update_Received += ExampleMod_Update_Received;
       modAPI.Application.ChatMessageSent += ExampleMod_Event_HandleLottoChatMessage;
 
-      Broker.Event_GameEvent += ExampleMod_Event_GameEvent;
+      Broker.Event_ConsoleCommand += Broker_Event_ConsoleCommand;
 
       modAPI.GameEvent += ModAPI_GameEvent;
       Broker.Event_Statistics += PlayerDied_Event_Statistics;
@@ -90,6 +90,11 @@ namespace ExampleMod
       }));
 
       Logger.log("example mod init complete");
+    }
+
+    private void Broker_Event_ConsoleCommand(ConsoleCommandInfo obj)
+    {
+      Logger.log($@"***console command executed {obj.command}***");
     }
 
     private void ModAPI_GameEvent(GameEventType type, object arg1 = null, object arg2 = null, object arg3 = null, object arg4 = null, object arg5 = null)
